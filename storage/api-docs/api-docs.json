@@ -1,0 +1,163 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Buildings History API Documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/geo/": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "fbc4f5efbcc1ca91188ce22ae1ae592f",
+                "responses": {
+                    "200": {
+                        "description": "Get all geos",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "3aae36eb42c17a49c29fd234fde622ad",
+                "parameters": [
+                    {
+                        "name": "geom",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "osid",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "toid",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "height_max",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "symbol",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post Geo",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/geo/upload/": {
+            "post": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "008a9a5d8eb2933ebf6d45ccbbd66f50",
+                "parameters": [
+                    {
+                        "name": "geom",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "osid",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "toid",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "height_max",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "symbol",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Upload Geo",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/sx-data/": {
+            "get": {
+                "tags": [
+                    "SX Data"
+                ],
+                "operationId": "b52932c8edf787a6b73ddb659710b838",
+                "responses": {
+                    "200": {
+                        "description": "Get all SX Data",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

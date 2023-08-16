@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Storage;
 
 class PhilGeoController extends Controller
 {
+    /**
+     * @OA\Get(
+     * path="/api/v1/geo/",
+     * tags={"Geo"},
+     * @OA\Response(response=200, description="Get all geos", @OA\JsonContent()),
+     * )
+     */
     public function index()
     {
         $data = PhilGeo::all();
@@ -18,6 +25,53 @@ class PhilGeoController extends Controller
         return ApiJsonResponse::sendOkResponse(['phil_geos' => $data]);
     }
 
+    /**
+     * @OA\Post(
+     * path="/api/v1/geo/",
+     * tags={"Geo"},
+     * @OA\Parameter(
+     *      name="geom",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="osid",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="toid",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="height_max",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="symbol",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     * ),
+     * @OA\Response(response=200, description="Post Geo", @OA\JsonContent()),
+     * )
+     */
     public function store(PhilGeoRequest $request)
     {
         $geom = json_encode($request->geom);
@@ -35,6 +89,53 @@ class PhilGeoController extends Controller
         return ApiJsonResponse::sendOkResponse(["geojson" => $data]);
     }
 
+    /**
+     * @OA\Post(
+     * path="/api/v1/geo/upload/",
+     * tags={"Geo"},
+     * @OA\Parameter(
+     *      name="geom",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="osid",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="toid",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="height_max",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="symbol",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     * ),
+     * @OA\Response(response=200, description="Upload Geo", @OA\JsonContent()),
+     * )
+     */
     public function storeAsJSONFile(PhilGeoRequest $request)
     {
         $geojson = [
