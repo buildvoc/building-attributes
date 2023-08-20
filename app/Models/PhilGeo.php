@@ -11,6 +11,7 @@ class PhilGeo extends Model
 {
     use HasFactory;
 
+    protected $connection = 'pgsql';
     protected $fillable = [
         'osid',
         'toid',

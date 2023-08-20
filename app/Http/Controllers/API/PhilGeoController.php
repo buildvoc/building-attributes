@@ -15,7 +15,47 @@ class PhilGeoController extends Controller
      * @OA\Get(
      * path="/api/v1/geo/",
      * tags={"Geo"},
-     * @OA\Response(response=200, description="Get all geos", @OA\JsonContent()),
+     * @OA\Parameter(
+     *      name="minEasting",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="number",
+     *           format="double"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="minNorthing",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="number",
+     *           format="double"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="maxEasting",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="number",
+     *           format="double"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="maxNorthing",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="number",
+     *           format="double"
+     *      )
+     * ),
+     * @OA\Response(
+     *      response=200,
+     *      description="Get all geos",
+     *      @OA\JsonContent()
+     * ),
      * )
      */
     public function index()

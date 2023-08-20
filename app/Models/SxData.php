@@ -9,6 +9,7 @@ class SxData extends Model
 {
     use HasFactory;
 
+    protected $connection = 'pgsql';
     protected $fillable = [
         'os_topo_toid',
         'os_topo_toid_version',

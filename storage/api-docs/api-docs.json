@@ -5,12 +5,86 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/galleries/": {
+            "get": {
+                "tags": [
+                    "Gallery"
+                ],
+                "operationId": "07469ec7f7e00f9b1b1e09087f6e04fd",
+                "responses": {
+                    "200": {
+                        "description": "Get all images",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/images/": {
+            "get": {
+                "tags": [
+                    "Image"
+                ],
+                "operationId": "6eedfbb0e4173adcf6920fa20758e31a",
+                "responses": {
+                    "200": {
+                        "description": "Get all images",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/geo/": {
             "get": {
                 "tags": [
                     "Geo"
                 ],
                 "operationId": "fbc4f5efbcc1ca91188ce22ae1ae592f",
+                "parameters": [
+                    {
+                        "name": "minEasting",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "minNorthing",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "maxEasting",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "maxNorthing",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get all geos",
