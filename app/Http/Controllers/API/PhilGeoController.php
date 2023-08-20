@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PhilGeoRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class PhilGeoController extends Controller
 {
@@ -58,9 +59,21 @@ class PhilGeoController extends Controller
      * ),
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = PhilGeo::all();
+        $minEasting = $request->minEasting;
+        $minNorthing = $request->minNorthing;
+        $maxEasting = $request->maxEasting;
+        $maxNorthing = $request->maxNorthing;
+
+        $data = PhilGeo::query()
+        ->when($minEasting, function ($query) use ($minEasting, $minNorthing,$maxEasting, $maxNorthing) {
+            $query->whereRaw("geom && ST_MakeEnvelope($minEasting, $minNorthing,$maxEasting, $maxNorthing, 4326)");
+            //$query->whereRaw("public.ST_DWithin(geom, ST_SetSRID(ST_Point($minNorthing,$minEasting), 4326), 30000)")
+        })
+        ->get();
+
+        // SELECT * FROM phil_geos WHERE ST_DWithin(geom, ST_SetSRID(ST_Point(0.08318185,51.2430483), 4326), 30000000)
 
         return ApiJsonResponse::sendOkResponse(['phil_geos' => $data]);
     }
