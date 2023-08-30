@@ -27,6 +27,7 @@ Route::middleware(['cors', 'json.response'])->group(function () {
     Route::prefix('v1')->group(function () {
         Route::prefix('geo')->group(function () {
             Route::get('/', [PhilGeoController::class, 'index'])->name('geo.index');
+            Route::get('/nearest', [PhilGeoController::class, 'nearest'])->name('geo.nearest');
             Route::post('/', [PhilGeoController::class, 'store'])->name('geo.store');
             Route::post('/upload', [PhilGeoController::class, 'storeAsJSONFile'])->name('geo.storeAsJSONFile');
         });

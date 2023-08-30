@@ -79,6 +79,61 @@ class PhilGeoController extends Controller
     }
 
     /**
+     * @OA\Get(
+     * path="/api/v1/geo/nearest",
+     * tags={"Geo"},
+     * @OA\Parameter(
+     *      name="latitude",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="number",
+     *           format="double"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="longitude",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="number",
+     *           format="double"
+     *      )
+     * ),
+     * @OA\Parameter(
+     *      name="radius",
+     *      in="query",
+     *      required=false,
+     *      @OA\Schema(
+     *           type="number",
+     *           format="double"
+     *      )
+     * ),
+     * @OA\Response(
+     *      response=200,
+     *      description="Get nearest geos with radius",
+     *      @OA\JsonContent()
+     * ),
+     * )
+     */
+    public function nearest(Request $request)
+    {
+        $latitude = $request->latitude;
+        $longitude = $request->longitude;
+        $radius = $request->radius ?: 100;
+
+        $data = PhilGeo::query()
+        ->when($latitude, function ($query) use ($latitude, $longitude, $radius) {
+            $query->whereRaw("public.ST_DWithin(geom, ST_SetSRID(ST_Point($longitude,$latitude), 4326), $radius)");
+        })
+        ->get();
+
+        // SELECT * FROM phil_geos WHERE ST_DWithin(geom, ST_SetSRID(ST_Point(0.08318185,51.2430483), 4326), 30000000)
+
+        return ApiJsonResponse::sendOkResponse(['phil_geos' => $data]);
+    }
+
+    /**
      * @OA\Post(
      * path="/api/v1/geo/",
      * tags={"Geo"},

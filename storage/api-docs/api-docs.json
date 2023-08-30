@@ -281,6 +281,53 @@
                 }
             }
         },
+        "/api/v1/geo/nearest": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "79a61eb6abd4b6e80b5c374eb4ae0a28",
+                "parameters": [
+                    {
+                        "name": "latitude",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "radius",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get nearest geos with radius",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/geo/upload/": {
             "post": {
                 "tags": [
@@ -347,30 +394,6 @@
                     "SX Data"
                 ],
                 "operationId": "b52932c8edf787a6b73ddb659710b838",
-                "parameters": [
-                    {
-                        "name": "os_topo_toid",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "os_topo_toid_version",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "bha_process_date",
-                        "in": "query",
-                        "schema": {
-                            "type": "string",
-                            "format": "date"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Get all SX Data",
