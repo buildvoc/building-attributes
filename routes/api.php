@@ -7,6 +7,7 @@ use App\Http\Controllers\API\PhilGeoController;
 use App\Http\Controllers\API\SxDataController;
 use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\GalleryController;
+use App\Http\Controllers\API\TopographyLayerSXController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,11 @@ Route::middleware(['cors', 'json.response'])->group(function () {
         });
 
         Route::get('sx-data', [SxDataController::class, 'index'])->name('sx_data.index');
+
+        Route::prefix('layer-sx')->group(function () {
+            Route::get('/', [TopographyLayerSXController::class, 'index'])->name('layer_sx.index');
+            Route::get('/nearest', [TopographyLayerSXController::class, 'nearest'])->name('layer_sx.nearest');
+        });
 
         Route::get('galleries', [GalleryController::class, 'index'])->name('gallery.index');
         Route::get('images', [ImageController::class, 'index'])->name('image.index');

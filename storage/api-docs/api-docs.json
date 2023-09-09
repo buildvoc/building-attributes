@@ -405,6 +405,71 @@
                     }
                 }
             }
+        },
+        "/api/v1/layer-sx/": {
+            "get": {
+                "tags": [
+                    "Topography Layer SX"
+                ],
+                "operationId": "64b14c5b8a1783fab44e56ce0a3146f5",
+                "responses": {
+                    "200": {
+                        "description": "Get all Topography Layer SX Data",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/layer-sx/nearest": {
+            "get": {
+                "tags": [
+                    "Topography Layer SX"
+                ],
+                "operationId": "33240adce5d46b67a7e05baa2e40cd28",
+                "parameters": [
+                    {
+                        "name": "latitude",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "radius",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get nearest SX with radius",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
