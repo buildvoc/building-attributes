@@ -120,7 +120,7 @@ class PhilGeoController extends Controller
     {
         $latitude = $request->latitude;
         $longitude = $request->longitude;
-        $radius = $request->radius ?: 100;
+        $radius = $request->radius ?: 10;
 
         $data = PhilGeo::query()
         ->when($latitude, function ($query) use ($latitude, $longitude, $radius) {

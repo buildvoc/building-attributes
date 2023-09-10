@@ -66,7 +66,7 @@ class TopographyLayerSXController extends Controller
     {
         $latitude = $request->latitude;
         $longitude = $request->longitude;
-        $radius = $request->radius ?: 100;
+        $radius = $request->radius ?: 10;
 
         $data = TopographyLayerSX::with('sx_data')
         ->when($latitude, function ($query) use ($latitude, $longitude, $radius) {
