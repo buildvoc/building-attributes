@@ -65,6 +65,6 @@ class TopographyLayerSX extends Model
 
     public function sx_data()
     {
-        return $this->hasOne(SXData::class, 'os_topo_toid', 'toid');
+        return $this->hasOne(SxData::class, 'os_topo_toid', 'toid');
     }
 }

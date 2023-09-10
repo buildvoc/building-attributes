@@ -69,10 +69,10 @@ class TopographyLayerSXController extends Controller
         $radius = $request->radius ?: 100;
 
         $data = TopographyLayerSX::with('sx_data')
-        // ->when($latitude, function ($query) use ($latitude, $longitude, $radius) {
-        //     $query->whereRaw("public.ST_DWithin(geom, ST_SetSRID(ST_Point($longitude,$latitude), 4326), $radius)");
-        // })
-        ->where('toid', 'osgb1000002070300013')
+        ->when($latitude, function ($query) use ($latitude, $longitude, $radius) {
+            $query->whereRaw("public.ST_DWithin(geom, ST_SetSRID(ST_Point($longitude,$latitude), 4326), $radius)");
+        })
+        // ->where('toid', 'osgb1000002070300013')
         ->limit(1)
         ->get();
 
