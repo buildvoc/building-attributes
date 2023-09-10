@@ -20,25 +20,15 @@ class TopographyLayerSX extends Model
         'geom',
     ];
     protected $hidden = [
+        'id',
         'toid',
         'version_nu',
         'version_da',
         'geom',
+        'geom_json',
     ];
     protected $spatialFields = ['geom'];
     protected $appends = ['geojson'];
-
-    public function newQuery()
-    {
-        return parent::newQuery()->select(
-            'id',
-            'gid',
-            'toid',
-            'version_nu',
-            'version_da',
-            DB::raw('public.ST_AsGeoJSON(geom) as geom')
-        );
-    }
 
     public function geojson(): Attribute
     {
@@ -48,8 +38,8 @@ class TopographyLayerSX extends Model
                     'type' => 'FeatureCollection',
                     'features' => [
                         [
-                            'geometry' => json_decode($this->geom),
-                            'id' => $this->id,
+                            'geometry' => json_decode($this->geom_json),
+                            'id' => $this->gid,
                             'properties' => [
                                 'TOID' => $this->toid,
                                 'version_nu' => $this->version_nu,
@@ -63,8 +53,4 @@ class TopographyLayerSX extends Model
         );
     }
 
-    public function sx_data()
-    {
-        return $this->hasOne(SxData::class, 'os_topo_toid', 'toid');
-    }
 }
