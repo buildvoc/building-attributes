@@ -49,8 +49,8 @@ class HomeController extends Controller
         return view('welcome', ['geojson_data' => $geojson_data, 'imgcontentarray' => $imgcontentarray]);
     }
 
-    public function osdData()
+    public function okans()
     {
-        return view('osdata');
+        return view('okans');
     }
 }

@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/osdata', [HomeController::class, 'osdData'])->name('osdata');
+Route::get('/okans', [HomeController::class, 'okans'])->name('okans');
