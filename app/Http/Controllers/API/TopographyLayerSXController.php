@@ -66,7 +66,7 @@ class TopographyLayerSXController extends Controller
     {
         $latitude = $request->latitude;
         $longitude = $request->longitude;
-        $radius = $request->radius ?: 50;
+        $radius = $request->radius ?: 20;
 
         $raw = DB::select( DB::raw('with t as
         (select st_buffer
