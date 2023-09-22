@@ -8,6 +8,7 @@ use App\Http\Controllers\API\SxDataController;
 use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\GalleryController;
 use App\Http\Controllers\API\TopographyLayerSXController;
+use App\Http\Controllers\API\BuildingPartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,11 @@ Route::middleware(['cors', 'json.response'])->group(function () {
             Route::get('/nearest', [PhilGeoController::class, 'nearest'])->name('geo.nearest');
             Route::post('/', [PhilGeoController::class, 'store'])->name('geo.store');
             Route::post('/upload', [PhilGeoController::class, 'storeAsJSONFile'])->name('geo.storeAsJSONFile');
+        });
+
+        Route::prefix('building-part')->group(function () {
+            Route::get('/', [BuildingPartController::class, 'index'])->name('building_part.index');
+            Route::get('/nearest', [BuildingPartController::class, 'nearest'])->name('building_part.nearest');
         });
 
         Route::get('sx-data', [SxDataController::class, 'index'])->name('sx_data.index');

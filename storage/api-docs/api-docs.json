@@ -5,6 +5,62 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/building-part/": {
+            "get": {
+                "tags": [
+                    "Building Part"
+                ],
+                "operationId": "a21d65d5903dffb016a1a40a5af1194e",
+                "responses": {
+                    "200": {
+                        "description": "List of building part",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/building-part/nearest": {
+            "get": {
+                "tags": [
+                    "Building Part"
+                ],
+                "operationId": "5c971b965f7c7535574e73e975cae986",
+                "parameters": [
+                    {
+                        "name": "latitude",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get nearest building part",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/galleries/": {
             "get": {
                 "tags": [
