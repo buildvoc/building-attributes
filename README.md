@@ -5,6 +5,15 @@ The building part (height, absoluteheightminimum, absoluteheightmaximum, heightc
 
 You can try to upload a photo of buildings in England, In a few seconds, the system will track detailed building attributes from the photo you uploaded. Let's try it, [building-height.co.uk](https://building-height.co.uk).
 
+1. Upload an image
+You can upload or capture from your camera with active GPS
+
+1. Image metadata will be displayed
+Extracted metadata from the image you uploaded will be displayed
+
+1. Building height will be identified
+The building height, map location of the building and its attributes will be displayed
+
 # About this repository
 
 This repository for serving building-height.co.uk API calls. It has been developed by experienced cartographers using PHP language based on Laravel and PostGIS.
