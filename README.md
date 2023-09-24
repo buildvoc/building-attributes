@@ -10,9 +10,11 @@ You can upload or capture from your camera with active GPS
 
 1. Image metadata will be displayed
 Extracted metadata from the image you uploaded will be displayed
+![image](https://github.com/buildvoc/building-attributes/assets/76884997/21f30cec-8514-4a37-a5f7-4799fb6e996c)
 
 1. Building height will be identified
 The building height, map location of the building and its attributes will be displayed
+![image](https://github.com/buildvoc/building-attributes/assets/76884997/dd625f81-0e23-483d-af12-0636372e084c)
 
 # About this repository
 
