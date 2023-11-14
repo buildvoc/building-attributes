@@ -27,6 +27,6 @@ No authentication is required to access this api. You simply enter the required 
 
 ## Building-Hight Open API
 
-You can simulate all API call in this [Building-Hight Swagger API Documentation](https://api.buildingshistory.co.uk/api/documentation).
+You can simulate all API call in this [Building-Height Swagger API Documentation](https://api.buildingshistory.co.uk/api/documentation).
 
 
