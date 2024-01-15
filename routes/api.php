@@ -47,7 +47,9 @@ Route::middleware(['cors', 'json.response'])->group(function () {
         });
 
         Route::get('galleries', [GalleryController::class, 'index'])->name('gallery.index');
+        Route::get('galleries/to-brick-collections-format', [GalleryController::class, 'toBrickCollections'])->name('gallery.toBrickCollections');
         Route::get('images', [ImageController::class, 'index'])->name('image.index');
+        Route::get('images/to-brick-items-format', [ImageController::class, 'toBrickItems'])->name('image.toBrickItems');
 
     });
 });

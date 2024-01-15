@@ -47,6 +47,24 @@
                             "type": "number",
                             "format": "double"
                         }
+                    },
+                    {
+                        "name": "distance",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "imagedirection",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
                     }
                 ],
                 "responses": {
@@ -94,6 +112,24 @@
                 "responses": {
                     "200": {
                         "description": "Get all galleries",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/galleries/to-brick-collections-format": {
+            "get": {
+                "tags": [
+                    "Gallery"
+                ],
+                "operationId": "4ed4f024f5b0f0eb9a3a8122312dbf0f",
+                "responses": {
+                    "200": {
+                        "description": "Get all galleries and show to_brick collections format",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -214,6 +250,33 @@
                 "responses": {
                     "200": {
                         "description": "Get all images",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/images/to-brick-items-format": {
+            "get": {
+                "tags": [
+                    "Image"
+                ],
+                "operationId": "2be9f4f649b4da5a185872aca9772925",
+                "parameters": [
+                    {
+                        "name": "gallery_id",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get all images and show to_brick items format",
                         "content": {
                             "application/json": {
                                 "schema": {}

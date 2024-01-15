@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\ApiJsonResponse;
 use App\Models\Gallery;
+use Illuminate\Support\Facades\DB;
 
 class GalleryController extends Controller
 {
@@ -63,5 +64,33 @@ class GalleryController extends Controller
         ->paginate(20);
 
         return ApiJsonResponse::sendOkResponse(['galleries' => $data]);
+    }
+
+    /**
+     * @OA\Get(
+     * path="/api/v1/galleries/to-brick-collections-format",
+     * tags={"Gallery"},
+     * @OA\Response(
+     *      response=200,
+     *      description="Get all galleries and show to_brick collections format",
+     *      @OA\JsonContent()
+     * ),
+     * )
+     */
+    public function toBrickCollections()
+    {
+        $galleries = DB::connection('mysql')->table('gallery')->get();
+
+        $collections = [];
+        foreach ($galleries as $gallery) {
+            $collections[] = [
+                'uuid' => $gallery->id,
+                'title' => $gallery->name,
+                'url' => 'https://buildingshistory.co.uk/galleries/' . $gallery->slug,
+                'include' => true
+            ];
+        }
+
+        return response()->json($collections);
     }
 }
