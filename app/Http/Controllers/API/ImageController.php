@@ -223,7 +223,7 @@ class ImageController extends Controller
             $image->title = $image->description;
             $image->url = 'https://buildingshistory.co.uk/galleries/'. $image->resized_filename;
             $image->image_id = $image->id;
-            $image->image_urls = [
+            $image->image_urls[] = [
                 'size' => 760,
                 'url' => 'https://buildingshistory.co.uk/galleries/'. $image->resized_filename
             ];
