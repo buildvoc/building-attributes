@@ -277,6 +277,12 @@ class ImageController extends Controller
                     'data' => $image
                 ]
             );
+
+            $items[] = [
+                'id' => $image->id,
+                'collection_id' => $image->gallery_id,
+                'data' => $image
+            ];
         }
 
         return response()->json($items);
