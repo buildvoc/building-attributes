@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\ApiJsonResponse;
+use App\Models\CollectionItem;
 use App\Models\Image;
 use Illuminate\Support\Facades\DB;
 
@@ -235,6 +236,47 @@ class ImageController extends Controller
                 'collection_id' => $image->gallery_id,
                 'data' => $image
             ];
+        }
+
+        return response()->json($items);
+    }
+
+    /**
+     * @OA\Get(
+     * path="/api/v1/images/sync",
+     * tags={"Image"},
+     * @OA\Response(
+     *      response=200,
+     *      description="Sync all images to brick_by_brick items",
+     *      @OA\JsonContent()
+     * ),
+     * )
+     */
+    public function sync()
+    {
+        $images = DB::connection('mysql')->table('image')->get();
+
+        $items = [];
+        foreach ($images as $image) {
+
+            $image->title = $image->description;
+            $image->url = 'https://buildingshistory.co.uk/galleries/'. $image->resized_filename;
+            $image->image_id = $image->id;
+            $image->image_urls[] = [
+                'size' => 760,
+                'url' => 'https://buildingshistory.co.uk/galleries/'. $image->resized_filename
+            ];
+            $image->location = $image->description;
+            $image->date = $image->exif_data_taken_at;
+
+            CollectionItem::updateOrCreate(
+                ['id' => $image->id],
+                [
+                    'organization_id' => 'nypl',
+                    'collection_id' => $image->gallery_id,
+                    'data' => $image
+                ]
+            );
         }
 
         return response()->json($items);

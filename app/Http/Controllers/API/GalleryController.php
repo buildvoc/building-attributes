@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\ApiJsonResponse;
+use App\Models\Collection;
 use App\Models\Gallery;
 use Illuminate\Support\Facades\DB;
 
@@ -90,6 +91,37 @@ class GalleryController extends Controller
                 'include' => true
             ];
         }
+
+        return response()->json($collections);
+    }
+
+    /**
+     * @OA\Get(
+     * path="/api/v1/galleries/sync",
+     * tags={"Gallery"},
+     * @OA\Response(
+     *      response=200,
+     *      description="Sync all galleries with brick_by_brick collections",
+     *      @OA\JsonContent()
+     * ),
+     * )
+     */
+    public function sync()
+    {
+        $galleries = DB::connection('mysql')->table('gallery')->get();
+
+        foreach ($galleries as $gallery) {
+            Collection::updateOrCreate(
+                ['id' => $gallery->id],
+                [
+                    'organization_id' => 'nypl',
+                    'title' => $gallery->name,
+                    'url' => 'https://buildingshistory.co.uk/galleries/' . $gallery->slug
+                ]
+            );
+        }
+
+        $collections = DB::connection('brick')->table('collections')->get();
 
         return response()->json($collections);
     }

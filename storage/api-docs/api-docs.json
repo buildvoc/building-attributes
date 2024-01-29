@@ -139,6 +139,24 @@
                 }
             }
         },
+        "/api/v1/galleries/sync": {
+            "get": {
+                "tags": [
+                    "Gallery"
+                ],
+                "operationId": "39f8843d235319bd1261129c23f93c50",
+                "responses": {
+                    "200": {
+                        "description": "Sync all galleries with brick_by_brick collections",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/images/": {
             "get": {
                 "tags": [
@@ -277,6 +295,24 @@
                 "responses": {
                     "200": {
                         "description": "Get all images and show to_brick items format",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/images/sync": {
+            "get": {
+                "tags": [
+                    "Image"
+                ],
+                "operationId": "4d104e1ace696d0b09fc2b0ddb5e22ff",
+                "responses": {
+                    "200": {
+                        "description": "Sync all images to brick_by_brick items",
                         "content": {
                             "application/json": {
                                 "schema": {}
