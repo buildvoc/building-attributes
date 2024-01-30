@@ -110,11 +110,6 @@ class GalleryController extends Controller
     {
         $galleries = DB::connection('mysql')->table('gallery')->get();
 
-        DB::connection('brick')->table('submission_counts')->truncate();
-        DB::connection('brick')->table('submissions')->truncate();
-        DB::connection('brick')->table('items')->truncate();
-        DB::connection('brick')->table('collections')->truncate();
-
         foreach ($galleries as $gallery) {
             Collection::updateOrCreate(
                 ['id' => $gallery->id],

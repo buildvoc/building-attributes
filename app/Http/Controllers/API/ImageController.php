@@ -256,6 +256,10 @@ class ImageController extends Controller
     {
         $images = DB::connection('mysql')->table('image')->get();
 
+        DB::connection('brick')->table('submission_counts')->truncate();
+        DB::connection('brick')->table('submissions')->truncate();
+        DB::connection('brick')->table('items')->truncate();
+
         $items = [];
         foreach ($images as $image) {
 
