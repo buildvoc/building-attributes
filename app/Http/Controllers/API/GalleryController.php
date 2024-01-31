@@ -123,6 +123,7 @@ class GalleryController extends Controller
             DB::connection('brick')->table('collections_tasks')->updateOrInsert(
                 [
                     'organization_id' => 'nypl',
+                    'collection_id' => $gallery->id,
                     'task_id' => 'geotag-photo',
                     'submissions_needed' => null
                 ],
