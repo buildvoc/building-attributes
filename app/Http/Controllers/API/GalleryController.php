@@ -120,11 +120,13 @@ class GalleryController extends Controller
                     'url' => 'https://buildingshistory.co.uk/galleries/' . $gallery->slug
                 ]
             );
-            CollectionTask::create(
+            CollectionTask::updateOrCreate(
+                ['id' => $gallery->id],
                 [
                     'organization_id' => 'nypl',
                     'collection_id' => $gallery->id,
-                    'task_id' => 'geotag-photo'
+                    'task_id' => 'geotag-photo',
+                    'submissions_needed' => null
                 ]
             );
         }
