@@ -121,7 +121,7 @@ class GalleryController extends Controller
                 ]
             );
             CollectionTask::updateOrCreate(
-                ['id' => $gallery->id],
+                ['collection_id' => $gallery->id],
                 [
                     'organization_id' => 'nypl',
                     'collection_id' => $gallery->id,
