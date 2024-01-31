@@ -124,7 +124,6 @@ class GalleryController extends Controller
                 ['collection_id' => $gallery->id],
                 [
                     'organization_id' => 'nypl',
-                    'collection_id' => $gallery->id,
                     'task_id' => 'geotag-photo',
                     'submissions_needed' => null
                 ]
