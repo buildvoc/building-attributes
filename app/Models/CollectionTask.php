@@ -9,7 +9,7 @@ class CollectionTask extends Model
 {
     use HasFactory;
 
-    protected $table = 'collections_task';
+    protected $table = 'collections_tasks';
     protected $connection = 'brick';
     public $timestamps = false;
 
