@@ -120,7 +120,7 @@ class GalleryController extends Controller
                     'url' => 'https://buildingshistory.co.uk/galleries/' . $gallery->slug
                 ]
             );
-            CollectionTask::updateOrCreate(
+            DB::connection('brick')->table('collections_tasks')->updateOrCreate(
                 ['collection_id' => $gallery->id],
                 [
                     'organization_id' => 'nypl',
