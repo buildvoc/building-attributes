@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\ApiJsonResponse;
 use App\Models\Collection;
+use App\Models\CollectionTask;
 use App\Models\Gallery;
 use Illuminate\Support\Facades\DB;
 
@@ -119,7 +120,7 @@ class GalleryController extends Controller
                     'url' => 'https://buildingshistory.co.uk/galleries/' . $gallery->slug
                 ]
             );
-            DB::connection('brick')->table('collections_task')->updateOrCreate(
+            CollectionTask::updateOrCreate(
                 ['collection_id' => $gallery->id],
                 [
                     'organization_id' => 'nypl',
