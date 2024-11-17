@@ -68,7 +68,7 @@ class TopographyLayerSXController extends Controller
         $longitude = $request->longitude;
         $radius = $request->radius ?: 20;
 
-        $raw = DB::select( DB::raw('with t as
+        $expression = DB::raw('with t as
         (select st_buffer
         (st_transform(
         (ST_SetSRID
@@ -80,7 +80,11 @@ class TopographyLayerSXController extends Controller
         where st_intersects(tls.geom, st_transform((t.geom),4326)))
         select * from c
         inner join sx_data sd on sd.os_topo_toid = c.toid
-        limit 1'), array(
+        limit 1');
+
+        $string = $expression->getValue(DB::connection()->getQueryGrammar());
+
+        $raw = DB::select( $string, array(
             'longitude' => $longitude, 'latitude' => $latitude, 'radius' => $radius
         )
     );

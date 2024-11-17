@@ -78,15 +78,19 @@ class BuildingPartController extends Controller
         $distance = $request->distance ?: 10;
         $imagedirection = $request->imagedirection ?: 9;
 
-        $raw = DB::select( DB::raw('with location as (SELECT st_transform(ST_MakeLine(
-    ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geometry,
-    ST_SetSRID(ST_Project(ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geometry, :distance, radians(:imagedirection)), 4326)::geometry
-    ), 3857) AS geom)
-    SELECT st_transform(t1.geometry, 3857) AS geometry_transformed, public.ST_AsGeoJSON(st_transform(t1.geometry, 4326)) AS geometry_json, t1.*
-    FROM bld_fts_buildingpart t1, location t2
-    WHERE st_intersects(t2.geom, st_transform(t1.geometry, 3857))
-    ORDER BY st_transform(t1.geometry, 3857) <-> t2.geom
-    LIMIT 1'), array(
+        $expression = DB::raw('with location as (SELECT st_transform(ST_MakeLine(
+        ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geometry,
+        ST_SetSRID(ST_Project(ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geometry, :distance, radians(:imagedirection)), 4326)::geometry
+        ), 3857) AS geom)
+        SELECT st_transform(t1.geometry, 3857) AS geometry_transformed, public.ST_AsGeoJSON(st_transform(t1.geometry, 4326)) AS geometry_json, t1.*
+        FROM bld_fts_buildingpart t1, location t2
+        WHERE st_intersects(t2.geom, st_transform(t1.geometry, 3857))
+        ORDER BY st_transform(t1.geometry, 3857) <-> t2.geom
+        LIMIT 1');
+
+        $string = $expression->getValue(DB::connection()->getQueryGrammar());
+
+        $raw = DB::select( $string, array(
             'longitude' => $longitude,
             'latitude' => $latitude,
             'distance' => $distance,
