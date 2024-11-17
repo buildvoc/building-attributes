@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\ApiJsonResponse;
+use App\Models\CollectionItem;
 use App\Models\Image;
+use Illuminate\Support\Facades\DB;
 
 class ImageController extends Controller
 {
@@ -186,5 +188,95 @@ class ImageController extends Controller
 
 
         return ApiJsonResponse::sendOkResponse(['images' => $data]);
+    }
+
+    /**
+     * @OA\Get(
+     * path="/api/v1/images/to-brick-items-format",
+     * tags={"Image"},
+     * @OA\Parameter(
+     *      name="gallery_id",
+     *      in="query",
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     * ),
+     * @OA\Response(
+     *      response=200,
+     *      description="Get all images and show to_brick items format",
+     *      @OA\JsonContent()
+     * ),
+     * )
+     */
+    public function toBrickItems(Request $request)
+    {
+        $gallery_id = $request->gallery_id;
+        $images = DB::connection('mysql')->table('image')
+        ->when($gallery_id, function ($query) use ($gallery_id) {
+            $query->where('gallery_id', $gallery_id);
+        })
+        ->get();
+        $items = [];
+        foreach ($images as $image) {
+            $image->title = $image->description;
+            $image->url = 'https://buildingshistory.co.uk/galleries/'. $image->resized_filename;
+            $image->image_id = $image->id;
+            $image->image_urls[] = [
+                'size' => 760,
+                'url' => 'https://buildingshistory.co.uk/galleries/'. $image->resized_filename
+            ];
+            $image->location = $image->description;
+            $image->date = $image->exif_data_taken_at;
+            $items[] = [
+                'id' => $image->id,
+                'collection_id' => $image->gallery_id,
+                'data' => $image
+            ];
+        }
+        return response()->json($items);
+    }
+    /**
+     * @OA\Get(
+     * path="/api/v1/images/sync",
+     * tags={"Image"},
+     * @OA\Response(
+     *      response=200,
+     *      description="Sync all images to brick_by_brick items",
+     *      @OA\JsonContent()
+     * ),
+     * )
+     */
+    public function sync()
+    {
+        $images = DB::connection('mysql')->table('image')->get();
+        DB::connection('brick')->table('submission_counts')->truncate();
+        DB::connection('brick')->table('submissions')->truncate();
+        DB::connection('brick')->table('items')->truncate();
+        $items = [];
+        foreach ($images as $image) {
+            $image->title = $image->description;
+            $image->url = 'https://buildingshistory.co.uk/galleries/'. $image->resized_filename;
+            $image->image_id = $image->id;
+            $image->image_urls[] = [
+                'size' => 760,
+                'url' => 'https://buildingshistory.co.uk/galleries/'. $image->resized_filename
+            ];
+            $image->location = $image->description;
+            $image->date = $image->exif_data_taken_at;
+            CollectionItem::updateOrCreate(
+                ['id' => $image->id],
+                [
+                    'organization_id' => 'nypl',
+                    'collection_id' => $image->gallery_id,
+                    'data' => $image
+                ]
+            );
+            $items[] = [
+                'id' => $image->id,
+                'collection_id' => $image->gallery_id,
+                'data' => $image
+            ];
+        }
+        return response()->json($items);
     }
 }
