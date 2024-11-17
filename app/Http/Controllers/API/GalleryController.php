@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\ApiJsonResponse;
-use App\Models\Collection;
-use App\Models\CollectionTask;
 use App\Models\Gallery;
-use Illuminate\Support\Facades\DB;
 
 class GalleryController extends Controller
 {
@@ -66,73 +63,5 @@ class GalleryController extends Controller
         ->paginate(20);
 
         return ApiJsonResponse::sendOkResponse(['galleries' => $data]);
-    }
-
-    /**
-     * @OA\Get(
-     * path="/api/v1/galleries/to-brick-collections-format",
-     * tags={"Gallery"},
-     * @OA\Response(
-     *      response=200,
-     *      description="Get all galleries and show to_brick collections format",
-     *      @OA\JsonContent()
-     * ),
-     * )
-     */
-    public function toBrickCollections()
-    {
-        $galleries = DB::connection('mysql')->table('gallery')->get();
-
-        $collections = [];
-        foreach ($galleries as $gallery) {
-            $collections[] = [
-                'uuid' => $gallery->id,
-                'title' => $gallery->name,
-                'url' => 'https://buildingshistory.co.uk/galleries/' . $gallery->slug,
-                'include' => true
-            ];
-        }
-
-        return response()->json($collections);
-    }
-
-    /**
-     * @OA\Get(
-     * path="/api/v1/galleries/sync",
-     * tags={"Gallery"},
-     * @OA\Response(
-     *      response=200,
-     *      description="Sync all galleries with brick_by_brick collections",
-     *      @OA\JsonContent()
-     * ),
-     * )
-     */
-    public function sync()
-    {
-        $galleries = DB::connection('mysql')->table('gallery')->get();
-
-        foreach ($galleries as $gallery) {
-            Collection::updateOrCreate(
-                ['id' => $gallery->id],
-                [
-                    'organization_id' => 'nypl',
-                    'title' => $gallery->name,
-                    'url' => 'https://buildingshistory.co.uk/galleries/' . $gallery->slug
-                ]
-            );
-            DB::connection('brick')->table('collections_tasks')->updateOrInsert(
-                [
-                    'organization_id' => 'nypl',
-                    'collection_id' => $gallery->id,
-                    'task_id' => 'geotag-photo',
-                    'submissions_needed' => null
-                ],
-                ['collection_id' => $gallery->id]
-            );
-        }
-
-        $collections = DB::connection('brick')->table('collections')->get();
-
-        return response()->json($collections);
     }
 }
