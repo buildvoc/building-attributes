@@ -97,7 +97,7 @@ return [
             'sslmode' => 'prefer',
         ],
 
-        'pgsql' => [
+        'brick' => [
             'driver' => 'pgsql',
             'url' => env('DB_URL'),
             'host' => env('DB_HOST_3', '127.0.0.1'),
