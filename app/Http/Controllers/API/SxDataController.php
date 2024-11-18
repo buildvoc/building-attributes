@@ -22,6 +22,7 @@ class SxDataController extends Controller
         // LEFT JOIN sx_data sd on toid = sd.os_topo_toid
         // WHERE ST_DWithin(geom, ST_SetSRID(ST_Point(-0.7995479,51.2139666), 4326), 10)
 
-        return ApiJsonResponse::sendOkResponse(['sx_data' => SxData::all()]);
+        $data = SxData::query()->paginate(20);
+        return ApiJsonResponse::sendOkResponse(['sx_data' => $data]);
     }
 }
