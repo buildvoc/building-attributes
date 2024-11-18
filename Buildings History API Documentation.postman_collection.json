@@ -107,19 +107,7 @@
 									],
 									"request": {
 										"auth": {
-											"type": "apikey",
-											"apikey": [
-												{
-													"key": "value",
-													"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
-													"type": "string"
-												},
-												{
-													"key": "key",
-													"value": "key",
-													"type": "string"
-												}
-											]
+											"type": "noauth"
 										},
 										"method": "GET",
 										"header": [
@@ -492,19 +480,7 @@
 									],
 									"request": {
 										"auth": {
-											"type": "apikey",
-											"apikey": [
-												{
-													"key": "value",
-													"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
-													"type": "string"
-												},
-												{
-													"key": "key",
-													"value": "key",
-													"type": "string"
-												}
-											]
+											"type": "noauth"
 										},
 										"method": "GET",
 										"header": [
@@ -621,19 +597,7 @@
 									],
 									"request": {
 										"auth": {
-											"type": "apikey",
-											"apikey": [
-												{
-													"key": "value",
-													"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
-													"type": "string"
-												},
-												{
-													"key": "key",
-													"value": "key",
-													"type": "string"
-												}
-											]
+											"type": "noauth"
 										},
 										"method": "GET",
 										"header": [
@@ -911,19 +875,7 @@
 									],
 									"request": {
 										"auth": {
-											"type": "apikey",
-											"apikey": [
-												{
-													"key": "value",
-													"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
-													"type": "string"
-												},
-												{
-													"key": "key",
-													"value": "key",
-													"type": "string"
-												}
-											]
+											"type": "noauth"
 										},
 										"method": "GET",
 										"header": [
@@ -1035,19 +987,7 @@
 									],
 									"request": {
 										"auth": {
-											"type": "apikey",
-											"apikey": [
-												{
-													"key": "value",
-													"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
-													"type": "string"
-												},
-												{
-													"key": "key",
-													"value": "key",
-													"type": "string"
-												}
-											]
+											"type": "noauth"
 										},
 										"method": "GET",
 										"header": [
@@ -1136,6 +1076,9 @@
 										}
 									],
 									"request": {
+										"auth": {
+											"type": "noauth"
+										},
 										"method": "GET",
 										"header": [
 											{
@@ -1231,19 +1174,7 @@
 			],
 			"request": {
 				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "value",
-							"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "key",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
 				"header": [],
@@ -1341,19 +1272,227 @@
 			],
 			"request": {
 				"auth": {
-					"type": "apikey",
-					"apikey": [
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/layer-sx/nearest?latitude=50.704831110039&longitude=-3.5583706312710874&radius=100",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"layer-sx",
+						"nearest"
+					],
+					"query": [
 						{
-							"key": "value",
-							"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
-							"type": "string"
+							"key": "latitude",
+							"value": "50.704831110039"
 						},
 						{
-							"key": "key",
-							"value": "key",
-							"type": "string"
+							"key": "longitude",
+							"value": "-3.5583706312710874"
+						},
+						{
+							"key": "radius",
+							"value": "100"
 						}
 					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "alex-mathew / Postman-GeoJSON-Visualizer-with-Fuzzy-Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let template = `\r",
+							"    <link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.1.0/dist/leaflet.css\" integrity=\"sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw==\" crossorigin=\"\"/>\r",
+							"    <script src=\"https://unpkg.com/leaflet@1.1.0/dist/leaflet.js\" integrity=\"sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA==\" crossorigin=\"\"></script>\r",
+							"    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\r",
+							"    <script src=\"http://dev.cartocite.fr/CultureNantes/js/vendor/fuse.js\"></script>\r",
+							"    <script src=\"http://dev.cartocite.fr/CultureNantes/js/leaflet.fusesearch.js\"></script>\r",
+							"    <link rel=\"stylesheet\" href=\"http://dev.cartocite.fr/CultureNantes/css/leaflet.fusesearch.css\"/>\r",
+							"    <style>\r",
+							"        #map {\r",
+							"            position:absolute;\r",
+							"            top: 0;\r",
+							"            left: 0;\r",
+							"            right: 0;\r",
+							"            bottom: 0;\r",
+							"        }\r",
+							"        table {\r",
+							"            border-collapse: collapse;\r",
+							"            width: 100%;\r",
+							"        }\r",
+							"        td {\r",
+							"            border: 1px solid #dddddd;\r",
+							"            text-align: left;\r",
+							"            padding: 4px;\r",
+							"        }\r",
+							"        a.button {\r",
+							"            margin: 0px 0px 0px 0px;\r",
+							"            padding: 0px 0px 0px 0px;\r",
+							"        }\r",
+							"        #coordinates {\r",
+							"            position: absolute;\r",
+							"            bottom: -25px;\r",
+							"            right: 0px;\r",
+							"            padding: 0px;\r",
+							"            z-index: 2000;\r",
+							"            background-color: white;\r",
+							"            display: none;\r",
+							"        }\r",
+							"        #coordinates.table {\r",
+							"            margin: 0px 0px 0px 0px;\r",
+							"        }\r",
+							"    </style>\r",
+							"    <div id=\"map\"></div>\r",
+							"    <div id=\"coordinates\">\r",
+							"        <table>\r",
+							"            <tr>\r",
+							"                <td>Latitude</td>\r",
+							"                <td id=\"lat\"></td>\r",
+							"            </tr>\r",
+							"            <tr>\r",
+							"                <td>Longitude</td>\r",
+							"                <td id=\"lng\"></td>\r",
+							"            </tr>\r",
+							"        </table>\r",
+							"    </div>\r",
+							"    <script>\r",
+							"        var map = L.map('map').setView([22.9734, 78.6569], 4);\r",
+							"        var base1=new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{ \r",
+							"        attribution: '&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors'});\r",
+							"        var base2 = new L.tileLayer('https://api.maptiler.com/tiles/satellite/{z}/{x}/{y}.jpg?key=WwTF2RiyjHztaQU4fkAW',{crossOrigin: true})\r",
+							"        base2.addTo(map);\r",
+							"        function forEachFeature(feature, layer) {\r",
+							"            var popupContent = '<h4>'+ feature.properties.name +'</h4><br><center><img src='+feature.properties.img+' img style=width:200px;height:300x;></center><br><table><tr><td><b>State</b></td><td>'+feature.properties.state+'</td></tr><tr><td><b>Type</b></td><td>'+feature.properties.type+'</td></tr><tr><td><b>Protected Species</b></td><td>'+feature.properties.species+'</td></tr></table>';\r",
+							"            layer.bindPopup(popupContent);\r",
+							"        };\r",
+							"        var nationalParks = L.geoJSON(null, {\r",
+							"            onEachFeature: forEachFeature, \r",
+							"            filter: function(feature, layer) {   \r",
+							"                return (feature.properties.type == \"National Park\");\r",
+							"            },\r",
+							"            pointToLayer: function (feature, latlng) {\r",
+							"                return L.circleMarker(latlng, {\r",
+							"                    radius:6,\r",
+							"                    color: 'blue', \r",
+							"                    fillColor: 'blue',\r",
+							"                    fillOpacity: 1\r",
+							"                });\r",
+							"            }\r",
+							"        });\r",
+							"        pm.getData( function (error, data) {\r",
+							"            nationalParks.addData(data.response);\r",
+							"            nationalParks.addTo(map);\r",
+							"        })\r",
+							"        var sancturies = L.geoJSON(null, {\r",
+							"            onEachFeature: forEachFeature,\r",
+							"            filter: function(feature, layer) {   \r",
+							"                return (feature.properties.type == \"Sanctuary\");\r",
+							"            },\r",
+							"            pointToLayer: function (feature, latlng) {\r",
+							"                return L.circleMarker(latlng, {\r",
+							"                    radius:6,\r",
+							"                    color: 'maroon', \r",
+							"                    fillColor: 'maroon', \r",
+							"                    fillOpacity: 1\r",
+							"                });\r",
+							"            }\r",
+							"        });\r",
+							"        pm.getData( function (error, data) {\r",
+							"            sancturies.addData(data.response);\r",
+							"            sancturies.addTo(map);\r",
+							"        })\r",
+							"        var options = {\r",
+							"            position: 'topright',\r",
+							"            title: 'Chercher',\r",
+							"            placeholder: 'ex: panthera',\r",
+							"            maxResultLength: 15,\r",
+							"            threshold: 0.3,\r",
+							"            showInvisibleFeatures: true,\r",
+							"            showResultFct: function(feature, container) {\r",
+							"                props = feature.properties;\r",
+							"                var div = L.DomUtil.create('div', null, container);\r",
+							"                var name = L.DomUtil.create('b', null, container);\r",
+							"                name.innerHTML = props.name;\r",
+							"                var cat = props.state, info = '' + cat + ', ' + props.species;\r",
+							"                div.appendChild(document.createTextNode(info));\r",
+							"                div.data_lat = feature.geometry.coordinates[0];\r",
+							"                div.data_long = feature.geometry.coordinates[1]; \r",
+							"                div.data_name = props.name;\r",
+							"                container.appendChild(div);\r",
+							"                var curr = null\r",
+							"                div.onclick = function() {\r",
+							"                    map.eachLayer(function (layer) { \r",
+							"                        console.log(layer);\r",
+							"                        if(layer.feature != null && layer.feature.properties.name == div.data_name) {\r",
+							"                            layer.fire('click');\r",
+							"                            map.setView([div.data_long+1, div.data_lat], 8);\r",
+							"                            document.getElementById('lat').innerHTML = div.data_lat.toFixed(4);\r",
+							"                            document.getElementById('lng').innerHTML = div.data_lng.toFixed(4);\r",
+							"                        }\r",
+							"                    });\r",
+							"                }\r",
+							"            }\r",
+							"        }\r",
+							"        pm.getData( function (error, data) {\r",
+							"            var fuseSearchCtrl = L.control.fuseSearch(options);\r",
+							"            var props = ['name', 'state', 'species', 'type'];\r",
+							"            fuseSearchCtrl.indexFeatures(data.response.data.layer_sx[0].geojson, props);\r",
+							"            map.addControl(fuseSearchCtrl);\r",
+							"        })\r",
+							"        var baseMaps= {\r",
+							"            \"Open Street Map\":base1,\r",
+							"            \"Satellite Image\": base2\r",
+							"        }\r",
+							"        var overlay= {\r",
+							"            \"Sancturies\":sancturies,\r",
+							"            \"National Parks\": nationalParks\r",
+							"        }\r",
+							"        L.control.layers(baseMaps, overlay, {\r",
+							"            position: 'bottomleft'\r",
+							"        }).addTo(map);  \r",
+							"        L.control.scale({\r",
+							"            metric: true,\r",
+							"            imperial: true,\r",
+							"            position: 'topleft'\r",
+							"        }).addTo(map);\r",
+							"        map.on('mousemove', function(e) {\r",
+							"            document.getElementById('lat').innerHTML = e.latlng.lat.toFixed(4)+'&deg';\r",
+							"            document.getElementById('lng').innerHTML = e.latlng.lng.toFixed(4)+'&deg';\r",
+							"        });\r",
+							"        map.on('mouseout', function(e) {\r",
+							"            document.getElementById('coordinates').style.display = 'none';\r",
+							"            document.getElementById('lat').innerHTML = '';\r",
+							"            document.getElementById('lng').innerHTML = '';\r",
+							"        });\r",
+							"        map.on('mouseover', function(e) {\r",
+							"            document.getElementById('lat').innerHTML = e.latlng.lat.toFixed(4)+'&deg';\r",
+							"            document.getElementById('lng').innerHTML = e.latlng.lng.toFixed(4)+'&deg';\r",
+							"            document.getElementById('coordinates').style.display = 'block';\r",
+							"        });\r",
+							"    </script>\r",
+							"`;\r",
+							"var locations = encodeURIComponent(JSON.stringify(pm.response.json()));\r",
+							"pm.visualizer.set(template, {response: pm.response.json()})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
 				},
 				"method": "GET",
 				"header": [],
