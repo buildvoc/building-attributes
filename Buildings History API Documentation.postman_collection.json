@@ -1,0 +1,1396 @@
+{
+	"info": {
+		"_postman_id": "dcbc1058-a2b8-45fd-8fa3-754284e8ab07",
+		"name": "Buildings History API Documentation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7595073"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "v1",
+					"item": [
+						{
+							"name": "building-part",
+							"item": [
+								{
+									"name": "list",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/building-part/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"building-part",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "nearest",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Postman GeoJSON Plugin\r",
+													"// https://github.com/OrdnanceSurvey/postmanGeoJSON\r",
+													"\r",
+													"const OS_MAPS_API_KEY = '' // leave blank for OSM tiles\r",
+													"\r",
+													"const template = `\r",
+													"<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.css\" />\r",
+													"<script src=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.js\"></script>\r",
+													"<style>\r",
+													"    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: auto 1fr; }\r",
+													"    #top { padding: 6px; margin: 0; background: #f1f5f9; color: #1e293b; }\r",
+													"    #map { padding: 0; margin: 0; }\r",
+													"</style>\r",
+													"<div id=\"top\"><small id=\"js-banner\">Loading Response.</small></div>\r",
+													"<div id=\"map\"></div>\r",
+													"<script>\r",
+													"    const map = L.map('map', { minZoom: 1, maxZoom: 18 });\r",
+													"    let apiKey = '${OS_MAPS_API_KEY}';\r",
+													"    let basemap = (!apiKey)\r",
+													"        ? L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\r",
+													"            attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r",
+													"        }).addTo(map)\r",
+													"        : L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Light_3857/{z}/{x}/{y}.png?key=' + apiKey, {\r",
+													"            maxZoom: 20,\r",
+													"            attribution: 'Contains OS data © Crown Copyright and Database Rights 2022'\r",
+													"        }).addTo(map)\r",
+													"    let overlay = L.geoJSON(null, {\r",
+													"        onEachFeature: function(feature, layer) {\r",
+													"            const properties = layer.feature.properties;\r",
+													"            let content = '<div\">';\r",
+													"            for( let i in properties ) {\r",
+													"                content += '<h1 style=\"margin-top: 4px; margin-bottom: 4px; font-size: 1.4em; font-weight: bold;\">' + i + '</h1><p style=\"margin-top: 2px; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #eee; font-size: 1em; font-family: monospace;\">' + properties[i] + '</p>';\r",
+													"            }\r",
+													"            content += '</div>';\r",
+													"            layer.bindPopup(content, { maxHeight: 300, maxWidth: 1000 });\r",
+													"            layer.on({ mouseover: focusOnFeature, mouseout: resetOverlayStyle });\r",
+													"        },\r",
+													"        style: { weight: 1, color: '#FF1F5B', fillOpacity: 0.2 }\r",
+													"    });\r",
+													"    function focusOnFeature(e) { let t = e.target; t.setStyle({ weight: 3 }); t.bringToFront() }\r",
+													"    function resetOverlayStyle(e) { overlay.resetStyle(e.target) }\r",
+													"    pm.getData((error, data) => {\r",
+													"        if (!data.response.data.building_part[0].geojson.type) {\r",
+													"            document.getElementById('js-banner').innerText = \"Error Parsing Response. It might not be GeoJSON.\";\r",
+													"        } else {\r",
+													"            overlay.addData(data.response.data.building_part[0].geojson);\r",
+													"            overlay.addTo(map);\r",
+													"            map.fitBounds(overlay.getBounds());\r",
+													"            document.getElementById('js-banner').innerText = \"Request has returned \" + data.response.data.building_part.length.toString() + \" unique features.\";\r",
+													"        }\r",
+													"    })\r",
+													"</script>`; pm.visualizer.set(template, {response: pm.response.json()});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "apikey",
+											"apikey": [
+												{
+													"key": "value",
+													"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
+													"type": "string"
+												},
+												{
+													"key": "key",
+													"value": "key",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/building-part/nearest?latitude=51.2120811&longitude=-0.8091416",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"building-part",
+												"nearest"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "51.2120811",
+													"description": "(Required) "
+												},
+												{
+													"key": "longitude",
+													"value": "-0.8091416",
+													"description": "(Required) "
+												},
+												{
+													"key": "distance",
+													"value": "<double>",
+													"disabled": true
+												},
+												{
+													"key": "imagedirection",
+													"value": "<double>",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "galleries",
+							"item": [
+								{
+									"name": "list",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/galleries/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"galleries",
+												""
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "slug",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "created_at",
+													"value": "<date>",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "to-brick-collections-format",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/galleries/to-brick-collections-format",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"galleries",
+												"to-brick-collections-format"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "sync",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/galleries/sync",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"galleries",
+												"sync"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "images",
+							"item": [
+								{
+									"name": "list",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/images/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"images",
+												""
+											],
+											"query": [
+												{
+													"key": "gallery_id",
+													"value": "4",
+													"disabled": true
+												},
+												{
+													"key": "filename",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "description",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "long_description",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "exif_data_latitude",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "exif_data_longitude",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "exif_data_altitude",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "exif_data_focal_length",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "exif_data_iso",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "exif_data_taken_at",
+													"value": "<date>",
+													"disabled": true
+												},
+												{
+													"key": "exif_data_gps_img_direction",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "exif_data_gps_longitude_ref",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "exif_data_gps_latitude_ref",
+													"value": "<string>",
+													"disabled": true
+												},
+												{
+													"key": "created_at",
+													"value": "<date>",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "to-brick-items-format",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/images/to-brick-items-format?gallery_id=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"images",
+												"to-brick-items-format"
+											],
+											"query": [
+												{
+													"key": "gallery_id",
+													"value": "<string>"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "sync",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/images/sync",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"images",
+												"sync"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "geo",
+							"item": [
+								{
+									"name": "list",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Postman GeoJSON Plugin\r",
+													"// https://github.com/OrdnanceSurvey/postmanGeoJSON\r",
+													"\r",
+													"const OS_MAPS_API_KEY = '' // leave blank for OSM tiles\r",
+													"\r",
+													"const template = `\r",
+													"<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.css\" />\r",
+													"<script src=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.js\"></script>\r",
+													"<style>\r",
+													"    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: auto 1fr; }\r",
+													"    #top { padding: 6px; margin: 0; background: #f1f5f9; color: #1e293b; }\r",
+													"    #map { padding: 0; margin: 0; }\r",
+													"</style>\r",
+													"<div id=\"top\"><small id=\"js-banner\">Loading Response.</small></div>\r",
+													"<div id=\"map\"></div>\r",
+													"<script>\r",
+													"    const map = L.map('map', { minZoom: 1, maxZoom: 18 });\r",
+													"    let apiKey = '${OS_MAPS_API_KEY}';\r",
+													"    let basemap = (!apiKey)\r",
+													"        ? L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\r",
+													"            attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r",
+													"        }).addTo(map)\r",
+													"        : L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Light_3857/{z}/{x}/{y}.png?key=' + apiKey, {\r",
+													"            maxZoom: 20,\r",
+													"            attribution: 'Contains OS data © Crown Copyright and Database Rights 2022'\r",
+													"        }).addTo(map)\r",
+													"    let overlay = L.geoJSON(null, {\r",
+													"        onEachFeature: function(feature, layer) {\r",
+													"            const properties = layer.feature.properties;\r",
+													"            let content = '<div\">';\r",
+													"            for( let i in properties ) {\r",
+													"                content += '<h1 style=\"margin-top: 4px; margin-bottom: 4px; font-size: 1.4em; font-weight: bold;\">' + i + '</h1><p style=\"margin-top: 2px; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #eee; font-size: 1em; font-family: monospace;\">' + properties[i] + '</p>';\r",
+													"            }\r",
+													"            content += '</div>';\r",
+													"            layer.bindPopup(content, { maxHeight: 300, maxWidth: 1000 });\r",
+													"            layer.on({ mouseover: focusOnFeature, mouseout: resetOverlayStyle });\r",
+													"        },\r",
+													"        style: { weight: 1, color: '#FF1F5B', fillOpacity: 0.2 }\r",
+													"    });\r",
+													"    function focusOnFeature(e) { let t = e.target; t.setStyle({ weight: 3 }); t.bringToFront() }\r",
+													"    function resetOverlayStyle(e) { overlay.resetStyle(e.target) }\r",
+													"    pm.getData((error, data) => {\r",
+													"        if (!data.response.data.phil_geos[0].geojson.type) {\r",
+													"            document.getElementById('js-banner').innerText = \"Error Parsing Response. It might not be GeoJSON.\";\r",
+													"        } else {\r",
+													"            overlay.addData(data.response.data.phil_geos[0].geojson);\r",
+													"            overlay.addTo(map);\r",
+													"            map.fitBounds(overlay.getBounds());\r",
+													"            document.getElementById('js-banner').innerText = \"Request has returned \" + data.response.data.phil_geos.length.toString() + \" unique features.\";\r",
+													"        }\r",
+													"    })\r",
+													"</script>`; pm.visualizer.set(template, {response: pm.response.json()});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "apikey",
+											"apikey": [
+												{
+													"key": "value",
+													"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
+													"type": "string"
+												},
+												{
+													"key": "key",
+													"value": "key",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/geo/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"geo",
+												""
+											],
+											"query": [
+												{
+													"key": "minEasting",
+													"value": "<double>",
+													"description": "(Required) ",
+													"disabled": true
+												},
+												{
+													"key": "minNorthing",
+													"value": "<double>",
+													"description": "(Required) ",
+													"disabled": true
+												},
+												{
+													"key": "maxEasting",
+													"value": "<double>",
+													"description": "(Required) ",
+													"disabled": true
+												},
+												{
+													"key": "maxNorthing",
+													"value": "<double>",
+													"description": "(Required) ",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "nearest",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Postman GeoJSON Plugin\r",
+													"// https://github.com/OrdnanceSurvey/postmanGeoJSON\r",
+													"\r",
+													"const OS_MAPS_API_KEY = '' // leave blank for OSM tiles\r",
+													"\r",
+													"const template = `\r",
+													"<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.css\" />\r",
+													"<script src=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.js\"></script>\r",
+													"<style>\r",
+													"    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: auto 1fr; }\r",
+													"    #top { padding: 6px; margin: 0; background: #f1f5f9; color: #1e293b; }\r",
+													"    #map { padding: 0; margin: 0; }\r",
+													"</style>\r",
+													"<div id=\"top\"><small id=\"js-banner\">Loading Response.</small></div>\r",
+													"<div id=\"map\"></div>\r",
+													"<script>\r",
+													"    const map = L.map('map', { minZoom: 1, maxZoom: 18 });\r",
+													"    let apiKey = '${OS_MAPS_API_KEY}';\r",
+													"    let basemap = (!apiKey)\r",
+													"        ? L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\r",
+													"            attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r",
+													"        }).addTo(map)\r",
+													"        : L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Light_3857/{z}/{x}/{y}.png?key=' + apiKey, {\r",
+													"            maxZoom: 20,\r",
+													"            attribution: 'Contains OS data © Crown Copyright and Database Rights 2022'\r",
+													"        }).addTo(map)\r",
+													"    let overlay = L.geoJSON(null, {\r",
+													"        onEachFeature: function(feature, layer) {\r",
+													"            const properties = layer.feature.properties;\r",
+													"            let content = '<div\">';\r",
+													"            for( let i in properties ) {\r",
+													"                content += '<h1 style=\"margin-top: 4px; margin-bottom: 4px; font-size: 1.4em; font-weight: bold;\">' + i + '</h1><p style=\"margin-top: 2px; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #eee; font-size: 1em; font-family: monospace;\">' + properties[i] + '</p>';\r",
+													"            }\r",
+													"            content += '</div>';\r",
+													"            layer.bindPopup(content, { maxHeight: 300, maxWidth: 1000 });\r",
+													"            layer.on({ mouseover: focusOnFeature, mouseout: resetOverlayStyle });\r",
+													"        },\r",
+													"        style: { weight: 1, color: '#FF1F5B', fillOpacity: 0.2 }\r",
+													"    });\r",
+													"    function focusOnFeature(e) { let t = e.target; t.setStyle({ weight: 3 }); t.bringToFront() }\r",
+													"    function resetOverlayStyle(e) { overlay.resetStyle(e.target) }\r",
+													"    pm.getData((error, data) => {\r",
+													"        if (!data.response.data.phil_geos[0].geojson.type) {\r",
+													"            document.getElementById('js-banner').innerText = \"Error Parsing Response. It might not be GeoJSON.\";\r",
+													"        } else {\r",
+													"            overlay.addData(data.response.data.phil_geos[0].geojson);\r",
+													"            overlay.addTo(map);\r",
+													"            map.fitBounds(overlay.getBounds());\r",
+													"            document.getElementById('js-banner').innerText = \"Request has returned \" + data.response.data.phil_geos.length.toString() + \" unique features.\";\r",
+													"        }\r",
+													"    })\r",
+													"</script>`; pm.visualizer.set(template, {response: pm.response.json()});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "apikey",
+											"apikey": [
+												{
+													"key": "value",
+													"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
+													"type": "string"
+												},
+												{
+													"key": "key",
+													"value": "key",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/geo/nearest?latitude=51.511399221980724&longitude=-0.0980561971664429",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"geo",
+												"nearest"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "51.511399221980724",
+													"description": "(Required) "
+												},
+												{
+													"key": "longitude",
+													"value": "-0.0980561971664429",
+													"description": "(Required) "
+												},
+												{
+													"key": "radius",
+													"value": "<double>",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "upload",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/geo/upload/?geom=<string>&osid=<string>&toid=<string>&height_max=<string>&symbol=<string>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"geo",
+												"upload",
+												""
+											],
+											"query": [
+												{
+													"key": "geom",
+													"value": "<string>",
+													"description": "(Required) "
+												},
+												{
+													"key": "osid",
+													"value": "<string>",
+													"description": "(Required) "
+												},
+												{
+													"key": "toid",
+													"value": "<string>",
+													"description": "(Required) "
+												},
+												{
+													"key": "height_max",
+													"value": "<string>",
+													"description": "(Required) "
+												},
+												{
+													"key": "symbol",
+													"value": "<string>",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "storeAsJSONFile",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/geo/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"geo",
+												""
+											],
+											"query": [
+												{
+													"key": "geom",
+													"value": "<string>",
+													"description": "(Required) ",
+													"disabled": true
+												},
+												{
+													"key": "osid",
+													"value": "<string>",
+													"description": "(Required) ",
+													"disabled": true
+												},
+												{
+													"key": "toid",
+													"value": "<string>",
+													"description": "(Required) ",
+													"disabled": true
+												},
+												{
+													"key": "height_max",
+													"value": "<string>",
+													"description": "(Required) ",
+													"disabled": true
+												},
+												{
+													"key": "symbol",
+													"value": "<string>",
+													"description": "(Required) ",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "sx-data",
+							"item": [
+								{
+									"name": "list",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/sx-data/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"sx-data",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "layer-sx",
+							"item": [
+								{
+									"name": "list",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/layer-sx/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"layer-sx",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "nearest",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Postman GeoJSON Plugin\r",
+													"// https://github.com/OrdnanceSurvey/postmanGeoJSON\r",
+													"\r",
+													"const OS_MAPS_API_KEY = '' // leave blank for OSM tiles\r",
+													"\r",
+													"const template = `\r",
+													"<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.css\" />\r",
+													"<script src=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.js\"></script>\r",
+													"<style>\r",
+													"    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: auto 1fr; }\r",
+													"    #top { padding: 6px; margin: 0; background: #f1f5f9; color: #1e293b; }\r",
+													"    #map { padding: 0; margin: 0; }\r",
+													"</style>\r",
+													"<div id=\"top\"><small id=\"js-banner\">Loading Response.</small></div>\r",
+													"<div id=\"map\"></div>\r",
+													"<script>\r",
+													"    const map = L.map('map', { minZoom: 1, maxZoom: 18 });\r",
+													"    let apiKey = '${OS_MAPS_API_KEY}';\r",
+													"    let basemap = (!apiKey)\r",
+													"        ? L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\r",
+													"            attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r",
+													"        }).addTo(map)\r",
+													"        : L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Light_3857/{z}/{x}/{y}.png?key=' + apiKey, {\r",
+													"            maxZoom: 20,\r",
+													"            attribution: 'Contains OS data © Crown Copyright and Database Rights 2022'\r",
+													"        }).addTo(map)\r",
+													"    let overlay = L.geoJSON(null, {\r",
+													"        onEachFeature: function(feature, layer) {\r",
+													"            const properties = layer.feature.properties;\r",
+													"            let content = '<div\">';\r",
+													"            for( let i in properties ) {\r",
+													"                content += '<h1 style=\"margin-top: 4px; margin-bottom: 4px; font-size: 1.4em; font-weight: bold;\">' + i + '</h1><p style=\"margin-top: 2px; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #eee; font-size: 1em; font-family: monospace;\">' + properties[i] + '</p>';\r",
+													"            }\r",
+													"            content += '</div>';\r",
+													"            layer.bindPopup(content, { maxHeight: 300, maxWidth: 1000 });\r",
+													"            layer.on({ mouseover: focusOnFeature, mouseout: resetOverlayStyle });\r",
+													"        },\r",
+													"        style: { weight: 1, color: '#FF1F5B', fillOpacity: 0.2 }\r",
+													"    });\r",
+													"    function focusOnFeature(e) { let t = e.target; t.setStyle({ weight: 3 }); t.bringToFront() }\r",
+													"    function resetOverlayStyle(e) { overlay.resetStyle(e.target) }\r",
+													"    pm.getData((error, data) => {\r",
+													"        if (!data.response.data.layer_sx[0].geojson.type) {\r",
+													"            document.getElementById('js-banner').innerText = \"Error Parsing Response. It might not be GeoJSON.\";\r",
+													"        } else {\r",
+													"            overlay.addData(data.response.data.layer_sx[0].geojson);\r",
+													"            overlay.addTo(map);\r",
+													"            map.fitBounds(overlay.getBounds());\r",
+													"            document.getElementById('js-banner').innerText = \"Request has returned \" + data.response.data.layer_sx.length.toString() + \" unique features.\";\r",
+													"        }\r",
+													"    })\r",
+													"</script>`; pm.visualizer.set(template, {response: pm.response.json()});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "apikey",
+											"apikey": [
+												{
+													"key": "value",
+													"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
+													"type": "string"
+												},
+												{
+													"key": "key",
+													"value": "key",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/layer-sx/nearest?latitude=50.704831110039&longitude=-3.5583706312710874&radius=100",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"layer-sx",
+												"nearest"
+											],
+											"query": [
+												{
+													"key": "latitude",
+													"value": "50.704831110039",
+													"description": "(Required) "
+												},
+												{
+													"key": "longitude",
+													"value": "-3.5583706312710874",
+													"description": "(Required) "
+												},
+												{
+													"key": "radius",
+													"value": "100"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "uprn",
+							"item": [
+								{
+									"name": "list",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Postman GeoJSON Plugin\r",
+													"// https://github.com/OrdnanceSurvey/postmanGeoJSON\r",
+													"\r",
+													"const OS_MAPS_API_KEY = '' // leave blank for OSM tiles\r",
+													"\r",
+													"const template = `\r",
+													"<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.css\" />\r",
+													"<script src=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.js\"></script>\r",
+													"<style>\r",
+													"    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: auto 1fr; }\r",
+													"    #top { padding: 6px; margin: 0; background: #f1f5f9; color: #1e293b; }\r",
+													"    #map { padding: 0; margin: 0; }\r",
+													"</style>\r",
+													"<div id=\"top\"><small id=\"js-banner\">Loading Response.</small></div>\r",
+													"<div id=\"map\"></div>\r",
+													"<script>\r",
+													"    const map = L.map('map', { minZoom: 1, maxZoom: 18 });\r",
+													"    let apiKey = '${OS_MAPS_API_KEY}';\r",
+													"    let basemap = (!apiKey)\r",
+													"        ? L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\r",
+													"            attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r",
+													"        }).addTo(map)\r",
+													"        : L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Light_3857/{z}/{x}/{y}.png?key=' + apiKey, {\r",
+													"            maxZoom: 20,\r",
+													"            attribution: 'Contains OS data © Crown Copyright and Database Rights 2022'\r",
+													"        }).addTo(map)\r",
+													"    let overlay = L.geoJSON(null, {\r",
+													"        onEachFeature: function(feature, layer) {\r",
+													"            const properties = layer.feature.properties;\r",
+													"            let content = '<div\">';\r",
+													"            for( let i in properties ) {\r",
+													"                content += '<h1 style=\"margin-top: 4px; margin-bottom: 4px; font-size: 1.4em; font-weight: bold;\">' + i + '</h1><p style=\"margin-top: 2px; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #eee; font-size: 1em; font-family: monospace;\">' + properties[i] + '</p>';\r",
+													"            }\r",
+													"            content += '</div>';\r",
+													"            layer.bindPopup(content, { maxHeight: 300, maxWidth: 1000 });\r",
+													"            layer.on({ mouseover: focusOnFeature, mouseout: resetOverlayStyle });\r",
+													"        },\r",
+													"        style: { weight: 1, color: '#FF1F5B', fillOpacity: 0.2 }\r",
+													"    });\r",
+													"    function focusOnFeature(e) { let t = e.target; t.setStyle({ weight: 3 }); t.bringToFront() }\r",
+													"    function resetOverlayStyle(e) { overlay.resetStyle(e.target) }\r",
+													"    pm.getData((error, data) => {\r",
+													"        if (!data.response.data.uprn.data[0].geojson.type) {\r",
+													"            document.getElementById('js-banner').innerText = \"Error Parsing Response. It might not be GeoJSON.\";\r",
+													"        } else {\r",
+													"            overlay.addData(data.response.data.uprn.data[0].geojson);\r",
+													"            overlay.addTo(map);\r",
+													"            map.fitBounds(overlay.getBounds());\r",
+													"            document.getElementById('js-banner').innerText = \"Request has returned \" + data.response.data.uprn.data.length.toString() + \" unique features.\";\r",
+													"        }\r",
+													"    })\r",
+													"</script>`; pm.visualizer.set(template, {response: pm.response.json()});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "apikey",
+											"apikey": [
+												{
+													"key": "value",
+													"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
+													"type": "string"
+												},
+												{
+													"key": "key",
+													"value": "key",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/uprn",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"uprn"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "joined",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Postman GeoJSON Plugin\r",
+													"// https://github.com/OrdnanceSurvey/postmanGeoJSON\r",
+													"\r",
+													"const OS_MAPS_API_KEY = '' // leave blank for OSM tiles\r",
+													"\r",
+													"const template = `\r",
+													"<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.css\" />\r",
+													"<script src=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.js\"></script>\r",
+													"<style>\r",
+													"    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: auto 1fr; }\r",
+													"    #top { padding: 6px; margin: 0; background: #f1f5f9; color: #1e293b; }\r",
+													"    #map { padding: 0; margin: 0; }\r",
+													"</style>\r",
+													"<div id=\"top\"><small id=\"js-banner\">Loading Response.</small></div>\r",
+													"<div id=\"map\"></div>\r",
+													"<script>\r",
+													"    const map = L.map('map', { minZoom: 1, maxZoom: 18 });\r",
+													"    let apiKey = '${OS_MAPS_API_KEY}';\r",
+													"    let basemap = (!apiKey)\r",
+													"        ? L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\r",
+													"            attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r",
+													"        }).addTo(map)\r",
+													"        : L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Light_3857/{z}/{x}/{y}.png?key=' + apiKey, {\r",
+													"            maxZoom: 20,\r",
+													"            attribution: 'Contains OS data © Crown Copyright and Database Rights 2022'\r",
+													"        }).addTo(map)\r",
+													"    let overlay = L.geoJSON(null, {\r",
+													"        onEachFeature: function(feature, layer) {\r",
+													"            const properties = layer.feature.properties;\r",
+													"            let content = '<div\">';\r",
+													"            for( let i in properties ) {\r",
+													"                content += '<h1 style=\"margin-top: 4px; margin-bottom: 4px; font-size: 1.4em; font-weight: bold;\">' + i + '</h1><p style=\"margin-top: 2px; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #eee; font-size: 1em; font-family: monospace;\">' + properties[i] + '</p>';\r",
+													"            }\r",
+													"            content += '</div>';\r",
+													"            layer.bindPopup(content, { maxHeight: 300, maxWidth: 1000 });\r",
+													"            layer.on({ mouseover: focusOnFeature, mouseout: resetOverlayStyle });\r",
+													"        },\r",
+													"        style: { weight: 1, color: '#FF1F5B', fillOpacity: 0.2 }\r",
+													"    });\r",
+													"    function focusOnFeature(e) { let t = e.target; t.setStyle({ weight: 3 }); t.bringToFront() }\r",
+													"    function resetOverlayStyle(e) { overlay.resetStyle(e.target) }\r",
+													"    pm.getData((error, data) => {\r",
+													"        if (!data.response.data.uprn.data[0].geojson.type) {\r",
+													"            document.getElementById('js-banner').innerText = \"Error Parsing Response. It might not be GeoJSON.\";\r",
+													"        } else {\r",
+													"            overlay.addData(data.response.data.uprn.data[0].geojson);\r",
+													"            overlay.addTo(map);\r",
+													"            map.fitBounds(overlay.getBounds());\r",
+													"            document.getElementById('js-banner').innerText = \"Request has returned \" + data.response.data.uprn.data.length.toString() + \" unique features.\";\r",
+													"        }\r",
+													"    })\r",
+													"</script>`; pm.visualizer.set(template, {response: pm.response.json()});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/uprn/joined",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"uprn",
+												"joined"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "api.os.uk",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Postman GeoJSON Plugin\r",
+							"// https://github.com/OrdnanceSurvey/postmanGeoJSON\r",
+							"\r",
+							"const OS_MAPS_API_KEY = '' // leave blank for OSM tiles\r",
+							"\r",
+							"const template = `\r",
+							"<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.css\" />\r",
+							"<script src=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.js\"></script>\r",
+							"<style>\r",
+							"    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: auto 1fr; }\r",
+							"    #top { padding: 6px; margin: 0; background: #f1f5f9; color: #1e293b; }\r",
+							"    #map { padding: 0; margin: 0; }\r",
+							"</style>\r",
+							"<div id=\"top\"><small id=\"js-banner\">Loading Response.</small></div>\r",
+							"<div id=\"map\"></div>\r",
+							"<script>\r",
+							"    const map = L.map('map', { minZoom: 1, maxZoom: 18 });\r",
+							"    let apiKey = '${OS_MAPS_API_KEY}';\r",
+							"    let basemap = (!apiKey)\r",
+							"        ? L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\r",
+							"            attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r",
+							"        }).addTo(map)\r",
+							"        : L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Light_3857/{z}/{x}/{y}.png?key=' + apiKey, {\r",
+							"            maxZoom: 20,\r",
+							"            attribution: 'Contains OS data © Crown Copyright and Database Rights 2022'\r",
+							"        }).addTo(map)\r",
+							"    let overlay = L.geoJSON(null, {\r",
+							"        onEachFeature: function(feature, layer) {\r",
+							"            const properties = layer.feature.properties;\r",
+							"            let content = '<div\">';\r",
+							"            for( let i in properties ) {\r",
+							"                content += '<h1 style=\"margin-top: 4px; margin-bottom: 4px; font-size: 1.4em; font-weight: bold;\">' + i + '</h1><p style=\"margin-top: 2px; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #eee; font-size: 1em; font-family: monospace;\">' + properties[i] + '</p>';\r",
+							"            }\r",
+							"            content += '</div>';\r",
+							"            layer.bindPopup(content, { maxHeight: 300, maxWidth: 1000 });\r",
+							"            layer.on({ mouseover: focusOnFeature, mouseout: resetOverlayStyle });\r",
+							"        },\r",
+							"        style: { weight: 1, color: '#FF1F5B', fillOpacity: 0.2 }\r",
+							"    });\r",
+							"    function focusOnFeature(e) { let t = e.target; t.setStyle({ weight: 3 }); t.bringToFront() }\r",
+							"    function resetOverlayStyle(e) { overlay.resetStyle(e.target) }\r",
+							"    pm.getData((error, data) => {\r",
+							"        if (!data.response.type) {\r",
+							"            document.getElementById('js-banner').innerText = \"Error Parsing Response. It might not be GeoJSON.\";\r",
+							"        } else {\r",
+							"            overlay.addData(data.response);\r",
+							"            overlay.addTo(map);\r",
+							"            map.fitBounds(overlay.getBounds());\r",
+							"            document.getElementById('js-banner').innerText = \"Request has returned \" + data.response.features.length.toString() + \" unique features.\";\r",
+							"        }\r",
+							"    })\r",
+							"</script>`; pm.visualizer.set(template, {response: pm.response.json()});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.os.uk/features/ngd/ofa/v1/collections/bld-fts-buildingpart-1/items?bbox=-3.545022,50.727083,-3.538596,50.728095",
+					"protocol": "https",
+					"host": [
+						"api",
+						"os",
+						"uk"
+					],
+					"path": [
+						"features",
+						"ngd",
+						"ofa",
+						"v1",
+						"collections",
+						"bld-fts-buildingpart-1",
+						"items"
+					],
+					"query": [
+						{
+							"key": "bbox",
+							"value": "-3.545022,50.727083,-3.538596,50.728095"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OrdnanceSurvey/postmanGeoJSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Postman GeoJSON Plugin\r",
+							"// https://github.com/OrdnanceSurvey/postmanGeoJSON\r",
+							"\r",
+							"const OS_MAPS_API_KEY = '' // leave blank for OSM tiles\r",
+							"\r",
+							"const template = `\r",
+							"<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.css\" />\r",
+							"<script src=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.js\"></script>\r",
+							"<style>\r",
+							"    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: auto 1fr; }\r",
+							"    #top { padding: 6px; margin: 0; background: #f1f5f9; color: #1e293b; }\r",
+							"    #map { padding: 0; margin: 0; }\r",
+							"</style>\r",
+							"<div id=\"top\"><small id=\"js-banner\">Loading Response.</small></div>\r",
+							"<div id=\"map\"></div>\r",
+							"<script>\r",
+							"    const map = L.map('map', { minZoom: 1, maxZoom: 18 });\r",
+							"    let apiKey = '${OS_MAPS_API_KEY}';\r",
+							"    let basemap = (!apiKey)\r",
+							"        ? L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\r",
+							"            attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r",
+							"        }).addTo(map)\r",
+							"        : L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Light_3857/{z}/{x}/{y}.png?key=' + apiKey, {\r",
+							"            maxZoom: 20,\r",
+							"            attribution: 'Contains OS data © Crown Copyright and Database Rights 2022'\r",
+							"        }).addTo(map)\r",
+							"    let overlay = L.geoJSON(null, {\r",
+							"        onEachFeature: function(feature, layer) {\r",
+							"            const properties = layer.feature.properties;\r",
+							"            let content = '<div\">';\r",
+							"            for( let i in properties ) {\r",
+							"                content += '<h1 style=\"margin-top: 4px; margin-bottom: 4px; font-size: 1.4em; font-weight: bold;\">' + i + '</h1><p style=\"margin-top: 2px; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #eee; font-size: 1em; font-family: monospace;\">' + properties[i] + '</p>';\r",
+							"            }\r",
+							"            content += '</div>';\r",
+							"            layer.bindPopup(content, { maxHeight: 300, maxWidth: 1000 });\r",
+							"            layer.on({ mouseover: focusOnFeature, mouseout: resetOverlayStyle });\r",
+							"        },\r",
+							"        style: { weight: 1, color: '#FF1F5B', fillOpacity: 0.2 }\r",
+							"    });\r",
+							"    function focusOnFeature(e) { let t = e.target; t.setStyle({ weight: 3 }); t.bringToFront() }\r",
+							"    function resetOverlayStyle(e) { overlay.resetStyle(e.target) }\r",
+							"    pm.getData((error, data) => {\r",
+							"        if (!data.response.data.layer_sx[0].geojson.type) {\r",
+							"            document.getElementById('js-banner').innerText = \"Error Parsing Response. It might not be GeoJSON.\";\r",
+							"        } else {\r",
+							"            overlay.addData(data.response.data.layer_sx[0].geojson);\r",
+							"            overlay.addTo(map);\r",
+							"            map.fitBounds(overlay.getBounds());\r",
+							"            document.getElementById('js-banner').innerText = \"Request has returned \" + data.response.features.length.toString() + \" unique features.\";\r",
+							"        }\r",
+							"    })\r",
+							"</script>`; pm.visualizer.set(template, {response: pm.response.json()});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "wXtior9ubP6EFLYP5l6isfWZYiKqOlf7",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/layer-sx/nearest?latitude=50.704831110039&longitude=-3.5583706312710874&radius=100",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"layer-sx",
+						"nearest"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "50.704831110039"
+						},
+						{
+							"key": "longitude",
+							"value": "-3.5583706312710874"
+						},
+						{
+							"key": "radius",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/"
+		}
+	]
+}
