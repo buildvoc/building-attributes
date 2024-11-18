@@ -29,7 +29,7 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 
 ### Version: 1.0.0
 
-### https://api.buildingshistory.co.uk/api/v1/building-part/
+### /api/v1/building-part/
 
 #### GET
 ##### Responses
@@ -38,7 +38,10 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | List of building part |
 
-### https://api.buildingshistory.co.uk/api/v1/building-part/nearest
+### /api/v1/building-part/nearest
+
+This method finding nearest building part of given latitude, longitude, and distance radius.
+For example given `51.2120811` as latitude and `-0.8091416` as longitude provided, with radius `100` in meters (default is 10 meters). The `FeatureCollection` with Polygon type geometry will be returned.
 
 #### GET
 ##### Parameters
@@ -56,7 +59,7 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Get nearest building part |
 
-### https://api.buildingshistory.co.uk/api/v1/galleries/
+### /api/v1/galleries/
 
 #### GET
 ##### Parameters
@@ -73,7 +76,7 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Get all galleries |
 
-### https://api.buildingshistory.co.uk/api/v1/galleries/to-brick-collections-format
+### /api/v1/galleries/to-brick-collections-format
 
 #### GET
 ##### Responses
@@ -82,7 +85,7 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Get all galleries and show to_brick collections format |
 
-### https://api.buildingshistory.co.uk/api/v1/galleries/sync
+### /api/v1/galleries/sync
 
 #### GET
 ##### Responses
@@ -91,7 +94,7 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Sync all galleries with brick_by_brick collections |
 
-### https://api.buildingshistory.co.uk/api/v1/images/
+### /api/v1/images/
 
 #### GET
 ##### Parameters
@@ -119,7 +122,7 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Get all images |
 
-### https://api.buildingshistory.co.uk/api/v1/images/to-brick-items-format
+### /api/v1/images/to-brick-items-format
 
 #### GET
 ##### Parameters
@@ -134,7 +137,7 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Get all images and show to_brick items format |
 
-### https://api.buildingshistory.co.uk/api/v1/images/sync
+### /api/v1/images/sync
 
 #### GET
 ##### Responses
@@ -143,7 +146,7 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Sync all images to brick_by_brick items |
 
-### https://api.buildingshistory.co.uk/api/v1/geo/
+### /api/v1/geo/
 
 #### GET
 ##### Parameters
@@ -178,7 +181,10 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Post Geo |
 
-### https://api.buildingshistory.co.uk/api/v1/geo/nearest
+### /api/v1/geo/nearest
+
+This method finding nearest building part of given latitude, longitude, and distance radius like `/api/v1/building-part/nearest`.
+For example given `51.511399221980724` as latitude and `-0.0980561971664429` as longitude provided, with radius `100` in meters (default is 10 meters). The GeoJson `FeatureCollection` will be returned.
 
 #### GET
 ##### Parameters
@@ -195,7 +201,7 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Get nearest geos with radius |
 
-### https://api.buildingshistory.co.uk/api/v1/geo/upload/
+### /api/v1/geo/upload/
 
 #### POST
 ##### Parameters
@@ -214,7 +220,7 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Upload Geo |
 
-### https://api.buildingshistory.co.uk/api/v1/sx-data/
+### /api/v1/sx-data/
 
 #### GET
 ##### Responses
@@ -223,7 +229,7 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Get all SX Data |
 
-### https://api.buildingshistory.co.uk/api/v1/layer-sx/
+### /api/v1/layer-sx/
 
 #### GET
 ##### Responses
@@ -232,7 +238,10 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Get all Topography Layer SX Data |
 
-### https://api.buildingshistory.co.uk/api/v1/layer-sx/nearest
+### /api/v1/layer-sx/nearest
+
+This method finding nearest topography of given latitude, longitude, and distance radius.
+For example given `50.704831110039` as latitude and `-3.5583706312710874` as longitude provided, with radius `100` in meters (default is 20 meters). The GeoJson `FeatureCollection` will be returned with toid `osgb1000002070300013`.
 
 #### GET
 ##### Parameters
@@ -249,9 +258,20 @@ You can simulate all API call in this [Building-Height Swagger API Documentation
 | ---- | ----------- |
 | 200 | Get nearest SX with radius |
 
+### /api/v1/uprn
 
-## Building-Height Open API
+#### GET
+##### Responses
 
-You can simulate all API call in this [Building-Height Swagger API Documentation](https://api.buildingshistory.co.uk/api/documentation).
+| Code | Description |
+| ---- | ----------- |
+| 200 | List of OPEN UPRN |
 
+### /api/v1/uprn/joined
 
+#### GET
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | List of UPRN TOPO JOINED |
