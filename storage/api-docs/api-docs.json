@@ -625,6 +625,42 @@
                     }
                 }
             }
+        },
+        "/api/v1/uprn": {
+            "get": {
+                "tags": [
+                    "UPRN"
+                ],
+                "operationId": "ac2dbe4d1e6b3b5873f36c8bb1e0c2b3",
+                "responses": {
+                    "200": {
+                        "description": "List of OPEN UPRN",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/uprn/joined": {
+            "get": {
+                "tags": [
+                    "UPRN"
+                ],
+                "operationId": "a2bba7c73cd17bd77e88fb498a4c9ee7",
+                "responses": {
+                    "200": {
+                        "description": "List of UPRN TOPO JOINED",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -651,6 +687,10 @@
         {
             "name": "Topography Layer SX",
             "description": "Topography Layer SX"
+        },
+        {
+            "name": "UPRN",
+            "description": "UPRN"
         }
     ]
 }

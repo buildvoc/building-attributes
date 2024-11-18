@@ -9,6 +9,8 @@ use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\GalleryController;
 use App\Http\Controllers\API\TopographyLayerSXController;
 use App\Http\Controllers\API\BuildingPartController;
+use App\Http\Controllers\API\OsOpenUprnController;
+use App\Http\Controllers\API\UprnController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +46,11 @@ Route::middleware(['cors', 'json.response'])->group(function () {
         Route::prefix('layer-sx')->group(function () {
             Route::get('/', [TopographyLayerSXController::class, 'index'])->name('layer_sx.index');
             Route::get('/nearest', [TopographyLayerSXController::class, 'nearest'])->name('layer_sx.nearest');
+        });
+
+        Route::prefix('uprn')->group(function () {
+            Route::get('/', [UprnController::class, 'index'])->name('uprn.index');
+            Route::get('/joined', [UprnController::class, 'joined'])->name('uprn.joined');
         });
 
         Route::get('galleries', [GalleryController::class, 'index'])->name('gallery.index');
