@@ -59,6 +59,25 @@ For example given `51.2120811` as latitude and `-0.8091416` as longitude provide
 | ---- | ----------- |
 | 200 | Get nearest building part |
 
+### /api/v1/codepoint
+This method finding codepoint coordinates by entering given `postcode`. For example we can enter `BA1` as postcode search, `FeatureCollection` data with array of features will be returned.
+
+You can visualize that response with [Postman-GeoJSON-Visualizer-with-Fuzzy-Search](https://github.com/alex-mathew/Postman-GeoJSON-Visualizer-with-Fuzzy-Search/tree/main) integration. 
+
+#### GET
+##### Parameters
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| postcode | query |  | No | string |
+| page | query |  | No | string |
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | List of codepoint |
+
 ### /api/v1/galleries/
 
 #### GET
@@ -265,13 +284,4 @@ For example given `50.704831110039` as latitude and `-3.5583706312710874` as lon
 
 | Code | Description |
 | ---- | ----------- |
-| 200 | List of OPEN UPRN |
-
-### /api/v1/uprn/joined
-
-#### GET
-##### Responses
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | List of UPRN TOPO JOINED |
+| 200 | List of UPRN Topo |
