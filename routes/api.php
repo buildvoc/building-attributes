@@ -9,7 +9,7 @@ use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\GalleryController;
 use App\Http\Controllers\API\TopographyLayerSXController;
 use App\Http\Controllers\API\BuildingPartController;
-use App\Http\Controllers\API\OsOpenUprnController;
+use App\Http\Controllers\API\CodepointController;
 use App\Http\Controllers\API\UprnController;
 
 /*
@@ -48,10 +48,8 @@ Route::middleware(['cors', 'json.response'])->group(function () {
             Route::get('/nearest', [TopographyLayerSXController::class, 'nearest'])->name('layer_sx.nearest');
         });
 
-        Route::prefix('uprn')->group(function () {
-            Route::get('/', [UprnController::class, 'index'])->name('uprn.index');
-            Route::get('/joined', [UprnController::class, 'joined'])->name('uprn.joined');
-        });
+        Route::get('uprn', [UprnController::class, 'index'])->name('uprn.index');
+        Route::get('codepoint', [CodepointController::class, 'index'])->name('codepoint.index');
 
         Route::get('galleries', [GalleryController::class, 'index'])->name('gallery.index');
         Route::get('galleries/to-brick-collections-format', [GalleryController::class, 'toBrickCollections'])->name('gallery.toBrickCollections');

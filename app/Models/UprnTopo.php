@@ -67,7 +67,7 @@ class UprnTopo extends Model
             'easting_2',
             'northing_2',
             'distance_2',
-            DB::raw('public.ST_AsGeoJSON(geom) as geom')
+            DB::raw('public.ST_AsGeoJSON(st_transform(geom, 4326)) as geom')
         );
     }
 
