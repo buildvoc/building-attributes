@@ -13,6 +13,212 @@
 					"name": "v1",
 					"item": [
 						{
+							"name": "codepoint",
+							"item": [
+								{
+									"name": "list",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"let template = `\r",
+													"    <link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.1.0/dist/leaflet.css\" integrity=\"sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw==\" crossorigin=\"\"/>\r",
+													"    <script src=\"https://unpkg.com/leaflet@1.1.0/dist/leaflet.js\" integrity=\"sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA==\" crossorigin=\"\"></script>\r",
+													"    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\r",
+													"    <script src=\"http://dev.cartocite.fr/CultureNantes/js/vendor/fuse.js\"></script>\r",
+													"    <script src=\"http://dev.cartocite.fr/CultureNantes/js/leaflet.fusesearch.js\"></script>\r",
+													"    <link rel=\"stylesheet\" href=\"http://dev.cartocite.fr/CultureNantes/css/leaflet.fusesearch.css\"/>\r",
+													"    <style>\r",
+													"        #map {\r",
+													"            position:absolute;\r",
+													"            top: 0;\r",
+													"            left: 0;\r",
+													"            right: 0;\r",
+													"            bottom: 0;\r",
+													"        }\r",
+													"        table {\r",
+													"            border-collapse: collapse;\r",
+													"            width: 100%;\r",
+													"        }\r",
+													"        td {\r",
+													"            border: 1px solid #dddddd;\r",
+													"            text-align: left;\r",
+													"            padding: 4px;\r",
+													"        }\r",
+													"        a.button {\r",
+													"            margin: 0px 0px 0px 0px;\r",
+													"            padding: 0px 0px 0px 0px;\r",
+													"        }\r",
+													"        #coordinates {\r",
+													"            position: absolute;\r",
+													"            bottom: -25px;\r",
+													"            right: 0px;\r",
+													"            padding: 0px;\r",
+													"            z-index: 2000;\r",
+													"            background-color: white;\r",
+													"            display: none;\r",
+													"        }\r",
+													"        #coordinates.table {\r",
+													"            margin: 0px 0px 0px 0px;\r",
+													"        }\r",
+													"    </style>\r",
+													"    <div id=\"map\"></div>\r",
+													"    <div id=\"coordinates\">\r",
+													"        <table>\r",
+													"            <tr>\r",
+													"                <td>Latitude</td>\r",
+													"                <td id=\"lat\"></td>\r",
+													"            </tr>\r",
+													"            <tr>\r",
+													"                <td>Longitude</td>\r",
+													"                <td id=\"lng\"></td>\r",
+													"            </tr>\r",
+													"        </table>\r",
+													"    </div>\r",
+													"    <script>\r",
+													"        var map = L.map('map').setView([51.452603307,-2.602073295], 6);\r",
+													"        var base1=new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{ \r",
+													"        attribution: '&copy; <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors'});\r",
+													"        var base2 = new L.tileLayer('https://api.maptiler.com/tiles/satellite/{z}/{x}/{y}.jpg?key=WwTF2RiyjHztaQU4fkAW',{crossOrigin: true})\r",
+													"        base1.addTo(map);\r",
+													"        function forEachFeature(feature, layer) {\r",
+													"            var popupContent = '<h4>'+ feature.properties.postcode +'</h4><br><table><tr><td><b>POSTCODE</b></td><td>'+feature.properties.postcode+'</td></tr><tr><td><b>FID</b></td><td>'+feature.properties.fid+'</td></tr><tr><td><b>COUNTRY CODE</b></td><td>'+feature.properties.country_code+'</td></tr><tr><td><b>PQI</b></td><td>'+feature.properties.positional_quality_indicator+'</td></tr><tr><td><b>UPRN</b></td><td>'+feature.properties.uprn+'</td></tr></table>';\r",
+													"            layer.bindPopup(popupContent);\r",
+													"        };\r",
+													"\r",
+													"        var markers = L.geoJSON(null, {\r",
+													"            onEachFeature: forEachFeature,\r",
+													"            filter: function(feature, layer) {   \r",
+													"                return true;\r",
+													"            },\r",
+													"            pointToLayer: function (feature, latlng) {\r",
+													"                return L.circleMarker(latlng, {\r",
+													"                    radius: 6,\r",
+													"                    color: 'blue', \r",
+													"                    fillColor: 'blue',\r",
+													"                    fillOpacity: 1\r",
+													"                });\r",
+													"            }\r",
+													"        });\r",
+													"        pm.getData( function (error, data) {\r",
+													"            markers.addData(data.response.data);\r",
+													"            markers.addTo(map);\r",
+													"        })\r",
+													"        var options = {\r",
+													"            position: 'topright',\r",
+													"            title: 'Chercher',\r",
+													"            placeholder: 'ex: BA1 0AH',\r",
+													"            maxResultLength: 10,\r",
+													"            threshold: 0.3,\r",
+													"            showInvisibleFeatures: true,\r",
+													"            showResultFct: function(feature, container) {\r",
+													"                props = feature.properties;\r",
+													"                var div = L.DomUtil.create('div', null, container);\r",
+													"                var name = L.DomUtil.create('b', null, container);\r",
+													"                name.innerHTML = props.postcode;\r",
+													"                var cat = props.positional_quality_indicator, info = 'PQI: ' + cat + ', UPRN: ' + props.uprn;\r",
+													"                div.appendChild(document.createTextNode(info));\r",
+													"                div.data_lat = feature.geometry.coordinates[0];\r",
+													"                div.data_long = feature.geometry.coordinates[1]; \r",
+													"                div.data_name = props.postcode;\r",
+													"                container.appendChild(div);\r",
+													"                var curr = null\r",
+													"                div.onclick = function() {\r",
+													"                    map.eachLayer(function (layer) { \r",
+													"                        console.log(layer);\r",
+													"                        if(layer.feature != null && layer.feature.properties.postcode == div.data_name) {\r",
+													"                            layer.fire('click');\r",
+													"                            map.setView([div.data_long+1, div.data_lat], 8);\r",
+													"                            document.getElementById('lat').innerHTML = div.data_lat.toFixed(4);\r",
+													"                            document.getElementById('lng').innerHTML = div.data_lng.toFixed(4);\r",
+													"                        }\r",
+													"                    });\r",
+													"                }\r",
+													"            }\r",
+													"        }\r",
+													"        pm.getData( function (error, data) {\r",
+													"            var fuseSearchCtrl = L.control.fuseSearch(options);\r",
+													"            var props = ['postcode', 'country_code', 'uprn', 'positional_quality_indicator', 'fid'];\r",
+													"            fuseSearchCtrl.indexFeatures(data.response.data.features, props);\r",
+													"            map.addControl(fuseSearchCtrl);\r",
+													"        })\r",
+													"        var baseMaps= {\r",
+													"            \"Open Street Map\":base1,\r",
+													"            \"Satellite Image\": base2\r",
+													"        }\r",
+													"        var overlay= {}\r",
+													"        L.control.layers(baseMaps, overlay, {\r",
+													"            position: 'bottomleft'\r",
+													"        }).addTo(map);  \r",
+													"        L.control.scale({\r",
+													"            metric: true,\r",
+													"            imperial: true,\r",
+													"            position: 'topleft'\r",
+													"        }).addTo(map);\r",
+													"        map.on('mousemove', function(e) {\r",
+													"            document.getElementById('lat').innerHTML = e.latlng.lat.toFixed(4)+'&deg';\r",
+													"            document.getElementById('lng').innerHTML = e.latlng.lng.toFixed(4)+'&deg';\r",
+													"        });\r",
+													"        map.on('mouseout', function(e) {\r",
+													"            document.getElementById('coordinates').style.display = 'none';\r",
+													"            document.getElementById('lat').innerHTML = '';\r",
+													"            document.getElementById('lng').innerHTML = '';\r",
+													"        });\r",
+													"        map.on('mouseover', function(e) {\r",
+													"            document.getElementById('lat').innerHTML = e.latlng.lat.toFixed(4)+'&deg';\r",
+													"            document.getElementById('lng').innerHTML = e.latlng.lng.toFixed(4)+'&deg';\r",
+													"            document.getElementById('coordinates').style.display = 'block';\r",
+													"        });\r",
+													"    </script>\r",
+													"`;\r",
+													"var locations = encodeURIComponent(JSON.stringify(pm.response.json()));\r",
+													"pm.visualizer.set(template, {response: pm.response.json()})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/codepoint?postcode=BA1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"codepoint"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "postcode",
+													"value": "BA1"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "building-part",
 							"item": [
 								{
@@ -785,6 +991,18 @@
 							"item": [
 								{
 									"name": "list",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
 										"header": [
@@ -1009,97 +1227,6 @@
 										}
 									},
 									"response": []
-								},
-								{
-									"name": "joined",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"// Postman GeoJSON Plugin\r",
-													"// https://github.com/OrdnanceSurvey/postmanGeoJSON\r",
-													"\r",
-													"const OS_MAPS_API_KEY = '' // leave blank for OSM tiles\r",
-													"\r",
-													"const template = `\r",
-													"<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.css\" />\r",
-													"<script src=\"https://unpkg.com/leaflet@1.7.1/dist/leaflet.js\"></script>\r",
-													"<style>\r",
-													"    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: auto 1fr; }\r",
-													"    #top { padding: 6px; margin: 0; background: #f1f5f9; color: #1e293b; }\r",
-													"    #map { padding: 0; margin: 0; }\r",
-													"</style>\r",
-													"<div id=\"top\"><small id=\"js-banner\">Loading Response.</small></div>\r",
-													"<div id=\"map\"></div>\r",
-													"<script>\r",
-													"    const map = L.map('map', { minZoom: 1, maxZoom: 18 });\r",
-													"    let apiKey = '${OS_MAPS_API_KEY}';\r",
-													"    let basemap = (!apiKey)\r",
-													"        ? L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\r",
-													"            attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r",
-													"        }).addTo(map)\r",
-													"        : L.tileLayer('https://api.os.uk/maps/raster/v1/zxy/Light_3857/{z}/{x}/{y}.png?key=' + apiKey, {\r",
-													"            maxZoom: 20,\r",
-													"            attribution: 'Contains OS data © Crown Copyright and Database Rights 2022'\r",
-													"        }).addTo(map)\r",
-													"    let overlay = L.geoJSON(null, {\r",
-													"        onEachFeature: function(feature, layer) {\r",
-													"            const properties = layer.feature.properties;\r",
-													"            let content = '<div\">';\r",
-													"            for( let i in properties ) {\r",
-													"                content += '<h1 style=\"margin-top: 4px; margin-bottom: 4px; font-size: 1.4em; font-weight: bold;\">' + i + '</h1><p style=\"margin-top: 2px; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #eee; font-size: 1em; font-family: monospace;\">' + properties[i] + '</p>';\r",
-													"            }\r",
-													"            content += '</div>';\r",
-													"            layer.bindPopup(content, { maxHeight: 300, maxWidth: 1000 });\r",
-													"            layer.on({ mouseover: focusOnFeature, mouseout: resetOverlayStyle });\r",
-													"        },\r",
-													"        style: { weight: 1, color: '#FF1F5B', fillOpacity: 0.2 }\r",
-													"    });\r",
-													"    function focusOnFeature(e) { let t = e.target; t.setStyle({ weight: 3 }); t.bringToFront() }\r",
-													"    function resetOverlayStyle(e) { overlay.resetStyle(e.target) }\r",
-													"    pm.getData((error, data) => {\r",
-													"        if (!data.response.data.uprn.data[0].geojson.type) {\r",
-													"            document.getElementById('js-banner').innerText = \"Error Parsing Response. It might not be GeoJSON.\";\r",
-													"        } else {\r",
-													"            overlay.addData(data.response.data.uprn.data[0].geojson);\r",
-													"            overlay.addTo(map);\r",
-													"            map.fitBounds(overlay.getBounds());\r",
-													"            document.getElementById('js-banner').innerText = \"Request has returned \" + data.response.data.uprn.data.length.toString() + \" unique features.\";\r",
-													"        }\r",
-													"    })\r",
-													"</script>`; pm.visualizer.set(template, {response: pm.response.json()});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "noauth"
-										},
-										"method": "GET",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/api/v1/uprn/joined",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"uprn",
-												"joined"
-											]
-										}
-									},
-									"response": []
 								}
 							]
 						}
@@ -1306,7 +1433,7 @@
 			"response": []
 		},
 		{
-			"name": "alex-mathew / Postman-GeoJSON-Visualizer-with-Fuzzy-Search",
+			"name": "alex-mathew-example",
 			"event": [
 				{
 					"listen": "test",
@@ -1447,7 +1574,7 @@
 							"        pm.getData( function (error, data) {\r",
 							"            var fuseSearchCtrl = L.control.fuseSearch(options);\r",
 							"            var props = ['name', 'state', 'species', 'type'];\r",
-							"            fuseSearchCtrl.indexFeatures(data.response.data.layer_sx[0].geojson, props);\r",
+							"            fuseSearchCtrl.indexFeatures(data.response.features, props);\r",
 							"            map.addControl(fuseSearchCtrl);\r",
 							"        })\r",
 							"        var baseMaps= {\r",
@@ -1491,34 +1618,25 @@
 				}
 			],
 			"request": {
-				"auth": {
-					"type": "noauth"
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/v1/layer-sx/nearest?latitude=50.704831110039&longitude=-3.5583706312710874&radius=100",
+					"raw": "https://api.maptiler.com/data/cec6563e-580e-4278-b50c-adbd73220f53/features.json?key=WwTF2RiyjHztaQU4fkAW",
+					"protocol": "https",
 					"host": [
-						"{{baseUrl}}"
+						"api",
+						"maptiler",
+						"com"
 					],
 					"path": [
-						"api",
-						"v1",
-						"layer-sx",
-						"nearest"
+						"data",
+						"cec6563e-580e-4278-b50c-adbd73220f53",
+						"features.json"
 					],
 					"query": [
 						{
-							"key": "latitude",
-							"value": "50.704831110039"
-						},
-						{
-							"key": "longitude",
-							"value": "-3.5583706312710874"
-						},
-						{
-							"key": "radius",
-							"value": "100"
+							"key": "key",
+							"value": "WwTF2RiyjHztaQU4fkAW"
 						}
 					]
 				}
