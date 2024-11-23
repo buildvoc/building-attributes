@@ -10,7 +10,7 @@ class Codepoint extends Model
 {
     use HasFactory;
 
-    protected $table = 'codepoint';
+    protected $table = 'osopenuprn_address_codepoint';
     protected $connection = 'pgsql';
     protected $fillable = [
         'fid',
