@@ -11,6 +11,7 @@ use App\Http\Controllers\API\TopographyLayerSXController;
 use App\Http\Controllers\API\BuildingPartController;
 use App\Http\Controllers\API\CodepointController;
 use App\Http\Controllers\API\UprnController;
+use App\Http\Controllers\API\WardSouthEastController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,8 @@ Route::middleware(['cors', 'json.response'])->group(function () {
         });
 
         Route::get('uprn', [UprnController::class, 'index'])->name('uprn.index');
+        Route::get('ward-south-east', [WardSouthEastController::class, 'index'])->name('wst.index');
+
         Route::get('codepoint', [CodepointController::class, 'index'])->name('codepoint.index');
 
         Route::get('galleries', [GalleryController::class, 'index'])->name('gallery.index');

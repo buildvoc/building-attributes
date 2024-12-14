@@ -699,6 +699,70 @@
                     }
                 }
             }
+        },
+        "/api/v1/ward-south-east/": {
+            "get": {
+                "tags": [
+                    "Ward South East"
+                ],
+                "operationId": "9c503b0b297d5316f520462c643a60bd",
+                "parameters": [
+                    {
+                        "name": "minLat",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "minLng",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "maxLat",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "maxLng",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Ward South East",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -733,6 +797,10 @@
         {
             "name": "UPRN",
             "description": "UPRN"
+        },
+        {
+            "name": "Ward South East",
+            "description": "Ward South East"
         }
     ]
 }
