@@ -24,7 +24,7 @@ class WardSouthEastController extends Controller
      *      )
      * ),
      * @OA\Parameter(
-     *      name="max_lng",
+     *      name="min_lat",
      *      in="query",
      *      required=true,
      *      @OA\Schema(
@@ -33,7 +33,7 @@ class WardSouthEastController extends Controller
      *      )
      * ),
      * @OA\Parameter(
-     *      name="min_lat",
+     *      name="max_lng",
      *      in="query",
      *      required=true,
      *      @OA\Schema(
@@ -59,10 +59,10 @@ class WardSouthEastController extends Controller
      */
     public function index(Request $request)
     {
-        $maxEasting = $request->max_lat;
-        $maxNorthing = $request->max_lng;
-        $minEasting = $request->min_lat;
-        $minNorthing = $request->min_lng;
+        $maxEasting = $request->max_lng;
+        $maxNorthing = $request->max_lat;
+        $minEasting = $request->min_lng;
+        $minNorthing = $request->min_lat;
 
         $data = WardSouthEast::query()
         ->when($minEasting, function ($query) use ($minEasting, $minNorthing,$maxEasting, $maxNorthing) {

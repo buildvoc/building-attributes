@@ -1526,7 +1526,7 @@
 											}
 										],
 										"url": {
-											"raw": "{{baseUrl}}/api/v1/ward-south-east/?max_lat=-1.142303&max_lng=50.784567&min_lat=-1.037933&min_lng=50.860084",
+											"raw": "{{baseUrl}}/api/v1/ward-south-east/?max_lat=50.784567&min_lat=50.860084&max_lng=-1.142303&min_lng=-1.037933",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -1539,19 +1539,19 @@
 											"query": [
 												{
 													"key": "max_lat",
-													"value": "-1.142303"
-												},
-												{
-													"key": "max_lng",
 													"value": "50.784567"
 												},
 												{
 													"key": "min_lat",
-													"value": "-1.037933"
+													"value": "50.860084"
+												},
+												{
+													"key": "max_lng",
+													"value": "-1.142303"
 												},
 												{
 													"key": "min_lng",
-													"value": "50.860084"
+													"value": "-1.037933"
 												}
 											]
 										}
