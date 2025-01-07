@@ -10,7 +10,7 @@ class WardSouthEast extends Model
 {
     use HasFactory;
 
-    protected $table = 'ward_south_east';
+    protected $table = 'shape';
     protected $connection = 'pgsql';
     protected $fillable = [
         'ogc_fid',
